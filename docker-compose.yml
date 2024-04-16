@@ -1,0 +1,29 @@
+version: '3'
+services:
+  front:
+    build: ./front
+    container_name: front
+    tty: true
+    ports:
+      - 3000:3000
+    stdin_open: true
+    # プロジェクトディレクトリにマウントする
+    volumes:
+      - ./front/sample:/app/sample
+    working_dir: /app/sample
+    environment:
+      - WATCHPACK_POLLING=true
+    command: sh -c "npm i && npm run dev"
+  back:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: back
+    ports:
+      - 1323:1323
+    tty: true
+    restart: always
+    volumes:
+      - ./back/src:/go/src
+    working_dir: /go/src
+    # command: air -c .air.toml
