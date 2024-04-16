@@ -9,11 +9,11 @@ services:
     stdin_open: true
     # プロジェクトディレクトリにマウントする
     volumes:
-      - ./front/sample:/app/sample
-    working_dir: /app/sample
+      - ./front/legacyvault:/app/legacyvault
+    working_dir: /app/legacyvault
     environment:
       - WATCHPACK_POLLING=true
-    command: sh -c "npm i && npm run dev"
+    # command: sh -c "npm i && npm run dev"
   back:
     build:
       context: ./back
