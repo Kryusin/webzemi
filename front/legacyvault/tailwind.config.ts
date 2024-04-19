@@ -23,6 +23,9 @@ const config: Config = {
         'edit': '16px',
         'error-details': '16px',
         'error-description': '14px',
+      },
+      backgroundColor: {
+        'sorted-hover': '#E5E5E5'
       }
     },
   },
