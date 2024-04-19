@@ -13,7 +13,9 @@ services:
     working_dir: /app/legacyvault
     environment:
       - WATCHPACK_POLLING=true
-    # command: sh -c "npm i && npm run dev"
+    command: sh -c "npm i && npm run dev"
+    networks:
+      - lesson
   back:
     build:
       context: ./back
@@ -27,3 +29,19 @@ services:
       - ./back/src:/go/src
     working_dir: /go/src
     # command: air -c .air.toml
+    networks:
+      - lesson
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: legacyvault
+      POSTGRES_PASSWORD: legacyvault
+      POSTGRES_DB: legacyvault
+    restart: always
+    networks:
+      - lesson
+networks:
+  lesson:
