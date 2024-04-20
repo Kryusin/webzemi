@@ -12,6 +12,9 @@ const config: Config = {
         'error-title-color': '#424B5A',
         'description-color': '#A0A0A0',
         'error-description-color': '#6B7280',
+        'input': '#E7E7EA',
+        'input-hover': '#178DEB',
+
       },
       fontSize: {
         'body': '16px',
