@@ -7,10 +7,20 @@ import SelectBox from "@/components/Input/SelectBox";
 import TextArea from "@/components/Input/TextArea";
 
 export default function Home() {
-  const language = ["JavaScript", "TypeScript", "Python", "Ruby", "Go", "Java", "C++", "C#", "Html", "Css"]
+  const [code, setCode] = useState({ lang: "javascript", value: { beforecode: "", aftercode: "" } });
   return (
     <div className="flex ml-2">
       <TextArea state="reason"></TextArea>
-    </div>
-  );
+      <div className="flex flex-col ml-2">
+        <SelectBox
+          nowlang={code.lang}
+          onChange={((value: string) => setCode({ ...code, lang: value }))}
+        />
+        <Code
+          language={code.lang}
+          beforecode={code.value.beforecode}
+          onChange={(value: string) => setCode({ ...code, value: { ...code.value, beforecode: value } })}
+        />
+      </div>
+      );
 }
