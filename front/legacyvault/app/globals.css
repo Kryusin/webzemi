@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.non-arrow {
+  appearance: none;
+}
+
+.non-arrow::after {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  padding-top: 30px;
+  background-image: url(https://jito-site.com/wp-content/uploads/2023/01/jito-icon.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
