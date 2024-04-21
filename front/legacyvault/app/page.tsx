@@ -10,7 +10,7 @@ export default function Home() {
   const language = ["JavaScript", "TypeScript", "Python", "Ruby", "Go", "Java", "C++", "C#", "Html", "Css"]
   return (
     <div className="flex ml-2">
-      <TextArea></TextArea>
+      <TextArea state="reason"></TextArea>
     </div>
   );
 }
