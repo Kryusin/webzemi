@@ -11,6 +11,12 @@ export default function Code({
     beforecode: string,
     onChange: (value: any) => void
 }) {
+    const editorRef = useRef(null);
+    function handleEditorDidMount(editor: any, monaco: any) {
+        // here is the editor instance
+        // you can store it in `useRef` for further usage
+        editorRef.current = editor;
+    }
     return (
         <Editor
             height="100px"
