@@ -20,3 +20,14 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
+
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+  border-radius: 999px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 999px;
+}
