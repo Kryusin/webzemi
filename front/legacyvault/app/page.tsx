@@ -4,18 +4,15 @@ import { useState } from "react";
 
 import Image from "next/image";
 import Text from "@/components/Text";
-<<<<<<< HEAD
 import Logo from "@/components/logo";
 import Sort from "@/components/Sort";
 import TextField from "@/components/Input/TextField";
 import SelectBox from "@/components/Input/SelectBox";
 import TextArea from "@/components/Input/TextArea";
 import Code from "@/components/Input/Code";
+import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { CodeProps, NotesProps } from "@/types";
-=======
-import Logo from "@/components/logo/logo";
->>>>>>> origin/main
 
 export default function Home() {
   const [code, setCode] = useState<CodeProps>({ lang: "javascript", value: { beforecode: "", aftercode: "" } });
@@ -54,7 +51,9 @@ export default function Home() {
 
   return (
     <div className="flex p-4 h-screen">
-      <div className="flex flex-col gap-[62px] overflow-scroll h-screen hidden-scroll">
+      <Button role="edit" />
+      <Button role="delete" />
+      {/* <div className="flex flex-col gap-[62px] overflow-scroll h-screen hidden-scroll">
         {notes.map((note) => (
           <div className="flex flex-col gap-[22px]" key={note.lang}>
             <div className="flex gap-4">
@@ -66,7 +65,7 @@ export default function Home() {
             ))}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

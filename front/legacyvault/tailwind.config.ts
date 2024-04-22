@@ -14,7 +14,7 @@ const config: Config = {
         'error-description-color': '#6B7280',
         'input': '#E7E7EA',
         'input-hover': '#178DEB',
-
+        'main': '#1F2937'
       },
       fontSize: {
         'body': '16px',
