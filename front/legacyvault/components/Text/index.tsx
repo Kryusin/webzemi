@@ -2,7 +2,7 @@ export default function Text({
     role = 'body',
     children
 }: {
-    role: 'title' | 'language' | 'errorTitle' | 'description' | 'delete' | 'edit' | 'body' | 'errorDetails' | 'errorDescription',
+    role: 'title' | 'language' | 'errorTitle' | 'description' | 'delete' | 'edit' | 'body' | 'errorDetails' | 'errorDescription' | 'note-language',
     children: React.ReactNode
 }) {
 
@@ -15,10 +15,13 @@ export default function Text({
             style = 'text-language text-black font-bold'
             break
         case 'errorTitle':
-            style = 'text-error-title text-error-title-color font-bold'
+            style = 'text-error-title text-error-title-color font-bold text-ellipsis overflow-hidden error-overflow'
+            break
+        case 'note-language':
+            style = 'text-note-language text-black font-bold'
             break
         case 'description':
-            style = 'text-description text-description-color font-bold'
+            style = 'text-description text-description-color font-bold text-ellipsis overflow-hidden error-overflow'
             break
         case 'delete':
             style = 'text-delete text-white font-bold'

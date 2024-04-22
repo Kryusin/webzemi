@@ -20,15 +20,17 @@ const config: Config = {
         'body': '16px',
         'title': '48px',
         'language': '48px',
+        'note-language': '24px',
         'error-title': '20px',
-        'description': '20px',
+        'description': '16px',
         'delete': '16px',
         'edit': '16px',
         'error-details': '16px',
         'error-description': '14px',
       },
       backgroundColor: {
-        'sorted-hover': '#E5E5E5'
+        'sorted-hover': '#E5E5E5',
+        'show-code': '#1F2937'
       }
     },
   },
