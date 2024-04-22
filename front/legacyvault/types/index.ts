@@ -5,3 +5,14 @@ export interface CodeProps {
         aftercode: string;
     };
 }
+
+export interface NotesProps {
+    lang: string;
+    data: NotesDataProps[];
+}
+
+export interface NotesDataProps {
+    title: string;
+    description: string;
+    answer: string;
+}

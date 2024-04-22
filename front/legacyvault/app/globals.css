@@ -31,3 +31,14 @@
   background-color: #ccc;
   border-radius: 999px;
 }
+
+.error-overflow {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  align-self: stretch;
+}
+
+.non-scroll::-webkit-scrollbar {
+  display: none;
+}
