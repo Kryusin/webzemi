@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Text from "@/components/Text";
-import Sidebar from "@/components/sidebar/sidebar";
+import Logo from "@/components/logo/logo";
 
 export default function Home() {
+  const [code, setCode] = useState<CodeProps>({ lang: "javascript", value: { beforecode: "", aftercode: "" } });
   return (
-    <div className="flex flex-row">
-      <Sidebar></Sidebar>
-      <main className="flex-[4_0_0] bg-transparent"></main>
-    </div>
+    <Logo></Logo>
   );
 }
