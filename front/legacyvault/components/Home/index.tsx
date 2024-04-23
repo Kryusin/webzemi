@@ -1,9 +1,17 @@
+'use client'
 import Image from "next/image"
+import { useEffect, useState } from "react";
+
+import Card from "../Card"
+import Code from "@/components/Input/Code"
 import Text from "@/components/Text"
 import Sort from "../Sort"
-import Card from "../Card"
-import LanguageCard from "@/components/LanguageCard"
-import { useEffect, useState } from "react";
+import LanguageCard from "@/components/LanguageCard
+import TextField from "@/components/Input/TextField"
+import SelectBox from "@/components/Input/SelectBox"
+import TextArea from "@/components/Input/TextArea"
+import Button from "@/components/Button"
+import { InputProps } from "@/types"
 
 export default function Home() {
     let [testdata, setTestData] = useState<Array<string>>(['Javascript','Typescript','Python','Go','PHP','Java','Ruby','HTML','CSS']);
@@ -33,6 +41,10 @@ export default function Home() {
                 <div className="justify-self-stretch flex flex-row gap-6">
                     {/* {language[0].length >= 1 ? <LanguageCard /> : <p>hello</p>} */}
                     <LanguageCard language={language}/>
+                </div>
+                <div className="justify-self-stretch flex flex-row gap-4 justify-end">
+                    <Button role="edit"></Button>
+                    <Button role="delete"></Button>
                 </div>
             </div>
         </>
