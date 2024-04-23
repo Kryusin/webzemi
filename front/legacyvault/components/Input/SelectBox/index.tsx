@@ -27,7 +27,7 @@ export default function SelectBox({
 
     return (
         <div className="flex justify-start">
-            <div className="flex flex-row gap-[13px] px-4 py-2 bg-transparent rounded-lg border-2 border-input focus:border-input-hover" onClick={() => setShow(!Show)}>
+            <div className="flex flex-row gap-[13px] px-4 py-2 bg-white rounded-lg border-2 border-input focus:border-input-hover" onClick={() => setShow(!Show)}>
                 <Text role="body">{nowlang}</Text>
                 <Image src="/home/arrow.svg" alt="sort" width={16} height={16}></Image>
             </div>
