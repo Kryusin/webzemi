@@ -5,7 +5,6 @@ export default function Text({
     role: 'title' | 'language' | 'errorTitle' | 'description' | 'delete' | 'edit' | 'body' | 'errorDetails' | 'errorDescription' | 'note-language',
     children: React.ReactNode
 }) {
-
     let style = 'text-body text-black'
     switch (role) {
         case 'title':

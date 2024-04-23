@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image"
-import Logo from "../logo/logo"
-import {useState} from "react";
+import Logo from "@/components/Logo";
+import { useState } from "react";
 
 export default function Sidebar() {
-    const [languages,setLanguages] = useState(false);
+    const [languages, setLanguages] = useState(false);
     const clickHome = () => {
         setLanguages(!languages);
     }
-    return(
+    return (
         <div className="bg-[#1F2937] px-4 py-[45px] flex flex-col gap-12 flex-[1_0_0] h-screen">
             {/* logo */}
             <Logo />

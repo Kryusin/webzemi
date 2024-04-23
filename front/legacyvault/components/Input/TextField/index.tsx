@@ -1,5 +1,10 @@
-export default function TextField() {
+export default function TextField({ onChange }: { onChange: (valut: string) => void }) {
     return (
-        <input type="text" className="flex-[1_0_0] flex flex-row items-center h-[50px] outline-2 outline-input focus:outline-input-hover rounded-lg pl-4 py-2" placeholder="エラー文を記述" />
+        <input
+            type="text"
+            className="justify-self-stretch flex flex-row items-center h-[50px] outline-none border-2 border-solid border-input focus:border-input-hover rounded-lg pl-4 py-2"
+            placeholder="エラー文を記述"
+            onChange={(e) => onChange(e.target.value)}
+        />
     )
 }

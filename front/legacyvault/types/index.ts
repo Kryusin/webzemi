@@ -16,3 +16,13 @@ export interface NotesDataProps {
     description: string;
     answer: string;
 }
+
+export interface InputProps {
+    ErrorTitle: string,
+    language: string,
+    ErrorDetails: string,
+    BeforeCode: string,
+    ErrorReason: string,
+    SolutionDetails: string,
+    AfterCode: string
+}

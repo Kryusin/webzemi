@@ -1,7 +1,9 @@
 export default function TextArea({
-    state
+    state,
+    onChange
 }: {
-    state: 'detail' | 'reason' | 'solution'
+    state: 'detail' | 'reason' | 'solution',
+    onChange: (value: string) => void
 }) {
     let placeholder = "エラーが起こる理由を記述";
     if (state === "reason") {
@@ -10,6 +12,13 @@ export default function TextArea({
         placeholder = "修正後の説明を記述";
     }
     return (
-        <textarea id="" cols={25} rows={10} className="flex-[1_0_0] rounded-lg bg-transparent outline-none border-2 border-input px-4 py-2 focus:border-input-hover resize-none" placeholder={placeholder}></textarea>
+        <textarea
+            id=""
+            cols={25}
+            rows={10}
+            className="justify-self-stretch rounded-lg bg-white outline-none border-2 border-input px-4 py-2 focus:border-input-hover resize-none"
+            placeholder={placeholder}
+            onChange={(e) => onChange(e.target.value)}
+        ></textarea>
     )
 }
