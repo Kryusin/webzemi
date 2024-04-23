@@ -1,10 +1,11 @@
 "use client";
+import Logo from "@/components/Logo";
 
 import Image from "next/image"
-import Logo from "@/components/Logo";
 import { useState } from "react";
+import { PageProps } from "@/types";
 
-export default function Sidebar() {
+export default function Sidebar({ onClick }: { onClick: (page: PageProps) => void }) {
     const [languages, setLanguages] = useState(false);
     const clickHome = () => {
         setLanguages(!languages);
@@ -33,7 +34,7 @@ export default function Sidebar() {
                 {/* languages */}
                 {languages && (
                     <div className="px-8 flex flex-col gap-4 h-[270px] overflow-y-scroll non-scroll py-4 bg-[#15202d] rounded-lg">
-                        <p className="text-white text-base font-bold">All</p>
+                        <p className="text-white text-base font-bold" onClick={() => onClick(PageProps.Home)}>All</p>
                         <p className="text-white text-base font-bold">Javascript</p>
                         <p className="text-white text-base font-bold">TypeScript</p>
                         <p className="text-white text-base font-bold">Python</p>
@@ -46,12 +47,12 @@ export default function Sidebar() {
                     </div>
                 )}
                 {/* add note */}
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-4" onClick={() => onClick(PageProps.AddNote)}>
                     <Image src="/sidebar/note.svg" alt="home" width={24} height={24}></Image>
                     <span className="text-white text-xl font-bold">Add Note</span>
                 </div>
                 {/* setting */}
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-4" onClick={() => onClick(PageProps.Setting)}>
                     <Image src="/sidebar/setting.svg" alt="home" width={24} height={24}></Image>
                     <span className="text-white text-xl font-bold">Setting</span>
                 </div>

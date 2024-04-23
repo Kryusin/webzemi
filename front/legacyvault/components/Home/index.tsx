@@ -9,10 +9,14 @@ import { InputProps } from "@/types"
 
 export default function Home() {
     const [input, setInput] = useState<InputProps>({ ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '' });
+    const onSubmit = () => {
+        console.log(input)
+    }
+
     return (
         <>
             <Text role="title">Add Note</Text>
-            <div className="flex-[1_0_0] flex flex-col pl-5 gap-4">
+            <form className="flex-[1_0_0] flex flex-col pl-5 gap-4" onSubmit={onSubmit}>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Error Title</Text>
                     <TextField
@@ -61,10 +65,9 @@ export default function Home() {
                     ></Code>
                 </div>
                 <div className="justify-self-stretch flex flex-row gap-4 justify-end">
-                    <Button role="edit"></Button>
-                    <Button role="delete"></Button>
+                    <Button role="add"></Button>
                 </div>
-            </div>
+            </form>
         </>
     )
 }

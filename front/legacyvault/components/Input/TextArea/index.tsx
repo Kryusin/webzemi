@@ -16,6 +16,7 @@ export default function TextArea({
             id=""
             cols={25}
             rows={10}
+            name={state}
             className="justify-self-stretch rounded-lg bg-white outline-none border-2 border-input px-4 py-2 focus:border-input-hover resize-none"
             placeholder={placeholder}
             onChange={(e) => onChange(e.target.value)}

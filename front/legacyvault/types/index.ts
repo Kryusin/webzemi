@@ -26,3 +26,9 @@ export interface InputProps {
     SolutionDetails: string,
     AfterCode: string
 }
+
+export enum PageProps {
+    Home = 'home',
+    AddNote = 'addnote',
+    Setting = 'setting',
+}
