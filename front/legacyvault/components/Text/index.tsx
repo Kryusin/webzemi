@@ -11,7 +11,7 @@ export default function Text({
             style = 'text-title text-black font-bold'
             break
         case 'language':
-            style = 'text-language text-black font-bold'
+            style = 'text-note-language text-black font-bold'
             break
         case 'errorTitle':
             style = 'text-error-title text-error-title-color font-bold text-ellipsis overflow-hidden error-overflow'
