@@ -3,6 +3,7 @@ import TextField from "@/components/Input/TextField"
 import SelectBox from "@/components/Input/SelectBox"
 import TextArea from "@/components/Input/TextArea"
 import Code from "@/components/Input/Code"
+import Button from "@/components/Button"
 import { useState } from "react"
 import { InputProps } from "@/types"
 
@@ -58,6 +59,9 @@ export default function AddNote() {
                         beforecode={input.AfterCode}
                         onChange={(value: string) => setInput({ ...input, AfterCode: value })}
                     ></Code>
+                </div>
+                <div className="justify-self-stretch flex flex-row gap-4 justify-end">
+                    <Button role="add"></Button>
                 </div>
             </div>
         </>
