@@ -17,7 +17,6 @@ export default function SelectBox({
     const monaco = useMonaco();
 
     useEffect(() => {
-        console.log(monaco)
         if (monaco) {
             monaco.languages.getLanguages().map((language: any) => {
                 setLanguage((langs) => [...langs, language.id])

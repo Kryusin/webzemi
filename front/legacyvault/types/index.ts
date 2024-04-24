@@ -24,11 +24,33 @@ export interface InputProps {
     BeforeCode: string,
     ErrorReason: string,
     SolutionDetails: string,
-    AfterCode: string
+    AfterCode: string,
+    createdAt: string,
+    updatedAt?: string,
+    deletedAt?: string,
 }
 
 export enum PageProps {
     Home = 'home',
     AddNote = 'addnote',
     Setting = 'setting',
+}
+
+export interface NoteNumberByDate {
+    date: string;
+    noteNumber: number;
+}
+
+export interface ChartData {
+    lang: string;
+    dateData: NoteNumberByDate[];
+}
+
+export interface DataProps {
+    labels: string[];
+    datasets: {
+        label: string;
+        data: number[];
+        backgroundColor: string[];
+    }[];
 }

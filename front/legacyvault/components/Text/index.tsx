@@ -2,7 +2,7 @@ export default function Text({
     role = 'body',
     children
 }: {
-    role: 'title' | 'language' | 'errorTitle' | 'description' | 'delete' | 'edit' | 'body' | 'errorDetails' | 'errorDescription' | 'note-language',
+    role: 'title' | 'language' | 'errorTitle' | 'description' | 'delete' | 'edit' | 'body' | 'errorDetails' | 'errorDescription' | 'note-language' | 'userName',
     children: React.ReactNode
 }) {
     let style = 'text-body text-black'
@@ -33,6 +33,9 @@ export default function Text({
             break
         case 'errorDescription':
             style = 'text-error-description text-error-description-color font-bold'
+            break
+        case 'userName':
+            style = 'text-user-name text-black font-regular'
             break
     }
     return (

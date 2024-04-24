@@ -1,9 +1,10 @@
 'use client'
 import Sidebar from "@/components/Sidebar";
 import Home from "@/components/Home";
+import Setting from "@/components/Setting";
+import { PageProps } from "@/types";
 
 import { useState } from "react";
-import { PageProps } from "@/types";
 
 export default function Page() {
   const [open, setOpen] = useState<PageProps>(PageProps.Home);
@@ -16,7 +17,7 @@ export default function Page() {
         ) : open === PageProps.AddNote ? (
           <Home />
         ) : open === PageProps.Setting && (
-          <div>setting</div>
+          <Setting />
         )}
       </div>
     </div>

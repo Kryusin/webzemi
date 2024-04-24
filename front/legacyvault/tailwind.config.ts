@@ -27,6 +27,7 @@ const config: Config = {
         'edit': '16px',
         'error-details': '16px',
         'error-description': '14px',
+        'user-name': '24px'
       },
       backgroundColor: {
         'sorted-hover': '#E5E5E5',

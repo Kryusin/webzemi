@@ -4,13 +4,13 @@ import SelectBox from "@/components/Input/SelectBox"
 import TextArea from "@/components/Input/TextArea"
 import Code from "@/components/Input/Code"
 import Button from "@/components/Button"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { InputProps } from "@/types"
 
 export default function Home() {
-    const [input, setInput] = useState<InputProps>({ ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '' });
+    const [input, setInput] = useState<InputProps>({ ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '', updatedAt: '', deletedAt: '' });
     const onSubmit = () => {
-        console.log(input)
+        // console.log(input)
     }
 
     return (
