@@ -6,7 +6,7 @@ import Card from "../Card"
 import Code from "@/components/Input/Code"
 import Text from "@/components/Text"
 import Sort from "../Sort"
-import LanguageCard from "@/components/LanguageCard
+import LanguageCard from "@/components/LanguageCard"
 import TextField from "@/components/Input/TextField"
 import SelectBox from "@/components/Input/SelectBox"
 import TextArea from "@/components/Input/TextArea"
@@ -41,10 +41,6 @@ export default function Home() {
                 <div className="justify-self-stretch flex flex-row gap-6">
                     {/* {language[0].length >= 1 ? <LanguageCard /> : <p>hello</p>} */}
                     <LanguageCard language={language}/>
-                </div>
-                <div className="justify-self-stretch flex flex-row gap-4 justify-end">
-                    <Button role="edit"></Button>
-                    <Button role="delete"></Button>
                 </div>
             </div>
         </>
