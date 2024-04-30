@@ -1,11 +1,11 @@
 "use client";
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 
 import Image from "next/image"
 import { useState } from "react";
-import { PageProps } from "@/types";
+import { SideBarProps } from "@/types";
 
-export default function Sidebar({ onClick }: { onClick: (page: PageProps) => void }) {
+export default function Sidebar({ onClick }: { onClick: (page: SideBarProps) => void }) {
     const [languages, setLanguages] = useState(false);
     const clickHome = () => {
         setLanguages(!languages);
@@ -34,8 +34,8 @@ export default function Sidebar({ onClick }: { onClick: (page: PageProps) => voi
                 {/* languages */}
                 {languages && (
                     <div className="px-8 flex flex-col gap-4 h-[270px] overflow-y-scroll non-scroll py-4 bg-[#15202d] rounded-lg">
-                        <p className="text-white text-base font-bold" onClick={() => onClick(PageProps.Home)}>All</p>
-                        <p className="text-white text-base font-bold">Javascript</p>
+                        <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Home)}>All</p>
+                        <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Detail)}>Javascript</p>
                         <p className="text-white text-base font-bold">TypeScript</p>
                         <p className="text-white text-base font-bold">Python</p>
                         <p className="text-white text-base font-bold">Go</p>
@@ -47,12 +47,12 @@ export default function Sidebar({ onClick }: { onClick: (page: PageProps) => voi
                     </div>
                 )}
                 {/* add note */}
-                <div className="flex flex-row gap-4" onClick={() => onClick(PageProps.AddNote)}>
+                <div className="flex flex-row gap-4" onClick={() => onClick(SideBarProps.AddNote)}>
                     <Image src="/sidebar/note.svg" alt="home" width={24} height={24}></Image>
                     <span className="text-white text-xl font-bold">Add Note</span>
                 </div>
                 {/* setting */}
-                <div className="flex flex-row gap-4" onClick={() => onClick(PageProps.Setting)}>
+                <div className="flex flex-row gap-4" onClick={() => onClick(SideBarProps.Setting)}>
                     <Image src="/sidebar/setting.svg" alt="home" width={24} height={24}></Image>
                     <span className="text-white text-xl font-bold">Setting</span>
                 </div>

@@ -12,12 +12,16 @@ export interface NotesProps {
 }
 
 export interface NotesDataProps {
+    id: number;
+    language?:string
     title: string;
     description: string;
     answer: string;
+    onClick: (value:SideBarProps, id:number) => void
 }
 
 export interface InputProps {
+    id: number,
     ErrorTitle: string,
     language: string,
     ErrorDetails: string,
@@ -30,10 +34,11 @@ export interface InputProps {
     deletedAt?: string,
 }
 
-export enum PageProps {
+export enum SideBarProps {
     Home = 'home',
     AddNote = 'addnote',
     Setting = 'setting',
+    Detail = 'detail'
 }
 
 export interface NoteNumberByDate {
@@ -53,4 +58,9 @@ export interface DataProps {
         data: number[];
         backgroundColor: string[];
     }[];
+}
+
+export interface NoteDataProps {
+    language: string,
+    noteData: InputProps[]
 }

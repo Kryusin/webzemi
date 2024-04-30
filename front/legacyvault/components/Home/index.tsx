@@ -11,16 +11,20 @@ import TextField from "@/components/Input/TextField"
 import SelectBox from "@/components/Input/SelectBox"
 import TextArea from "@/components/Input/TextArea"
 import Button from "@/components/Button"
-import { InputProps } from "@/types"
+import { InputProps, NoteDataProps, SideBarProps } from "@/types"
+import { testData } from "../testdata";
+import { allNotes, getNotesNumber } from "@/scripts/getNotesNumber";
 
-export default function Home() {
-    let [testdata, setTestData] = useState<Array<string>>(['Javascript', 'Typescript', 'Python', 'Go', 'PHP', 'Java', 'Ruby', 'HTML', 'CSS']);
-    const [language, setLanguage] = useState<Array<Array<string>>>([[], []]);
+export default function Home({ onClick }: { onClick: (value: SideBarProps, data: InputProps) => void }) {
+    // let [testdata, setTestData] = useState<Array<string>>(['Javascript', 'Typescript', 'Python', 'Go', 'PHP', 'Java', 'Ruby', 'HTML', 'CSS']);
+    const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
+
     useEffect(() => {
-        let language_temp: Array<Array<string>> = [[], []]
-        testdata.map((lang: string, index: number) => index % 2 == 0 ? language_temp[0].push(lang) : language_temp[1].push(lang))
-        setLanguage(language_temp);
-    }, [testdata])
+        let temp:Array<NoteDataProps[]> = [[], []]
+        const allData = allNotes();
+        allData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
+        setNotesData(temp)
+    }, [])
 
 
     return (
@@ -40,7 +44,7 @@ export default function Home() {
                 {/* language-card-list */}
                 <div className="justify-self-stretch flex flex-row gap-6">
                     {/* {language[0].length >= 1 ? <LanguageCard /> : <p>hello</p>} */}
-                    <LanguageCard language={language} />
+                    {notesData.length > 0 && <LanguageCard language={notesData} onClick={onClick} />}
                 </div>
             </div>
         </>
