@@ -8,7 +8,7 @@ import { useState } from "react"
 import { InputProps } from "@/types"
 
 export default function AddNote() {
-    const [input, setInput] = useState<InputProps>({ ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '' });
+    const [input, setInput] = useState<InputProps>({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: ""});
     return (
         <>
             <Text role="title">Add Note</Text>
