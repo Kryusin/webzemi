@@ -7,16 +7,12 @@ import { SideBarProps } from "@/types"
 
 export default function LanguageCard({language, onClick}: {language:Array<NoteDataProps[]>, onClick: (value: SideBarProps, data: InputProps) => void}) {
     return(
-        <>
-        {language.map((lang:Array<NoteDataProps>) => (
-            <>
-                <div className="flex-[1_0_0] flex flex-col gap-[33px]">
-                    {lang.map((l:NoteDataProps) => (
-                        <Contents note={l} onClick={onClick} key={l.language}/>
-                    ))}
-                </div>
-            </>
-        ))}
-        </>
+        language.map((lang:Array<NoteDataProps>, index:number) => (
+            <div className="flex-[1_0_0] flex flex-col gap-[33px]" key={index}>
+                {lang.map((l:NoteDataProps) => (
+                    <Contents note={l} onClick={onClick} key={l.language}/>
+                ))}
+            </div>
+        ))
     )
 }

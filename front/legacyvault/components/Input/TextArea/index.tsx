@@ -1,9 +1,11 @@
 export default function TextArea({
     state,
-    onChange
+    onChange,
+    data
 }: {
     state: 'detail' | 'reason' | 'solution',
     onChange: (value: string) => void
+    data: string
 }) {
     let placeholder = "エラーが起こる理由を記述";
     if (state === "reason") {
@@ -19,6 +21,7 @@ export default function TextArea({
             name={state}
             className="justify-self-stretch rounded-lg bg-white outline-none border-2 border-input px-4 py-2 focus:border-input-hover resize-none"
             placeholder={placeholder}
+            value={data}
             onChange={(e) => onChange(e.target.value)}
         ></textarea>
     )

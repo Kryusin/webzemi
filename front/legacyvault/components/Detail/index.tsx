@@ -1,10 +1,10 @@
 import Image from "next/image"
 import Text from "@/components/Text"
 import Button from "@/components/Button"
-import { InputProps } from "@/types"
+import { InputProps,SideBarProps } from "@/types"
 import { useEffect, useState } from "react"
 
-export default function Detail({data}:{data: InputProps}) {
+export default function Detail({data, onClick}:{data: InputProps, onClick: (page: SideBarProps, status: string) => void}) {
     var capitalize = function(str:string) {
         if (typeof str !== 'string' || !str) return str;
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -50,8 +50,8 @@ export default function Detail({data}:{data: InputProps}) {
                         </div>
                         {/* Button */}
                         <div className="flex flex-row gap-[10px] justify-end">
-                            <Button role="edit"/>
-                            <Button role="delete"/>
+                            <Button role="edit" onClick={onClick}/>
+                            <Button role="delete" onClick={onClick}/>
                         </div>
                     </div>
                 </div>

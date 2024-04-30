@@ -6,10 +6,10 @@ import Text from '@/components/Text';
 import Image from 'next/image';
 
 export default function SelectBox({
-    nowlang,
+    value,
     onChange
 }: {
-    nowlang: string,
+    value: string,
     onChange: (value: string) => void
 }) {
     const [Show, setShow] = useState<boolean>(false);
@@ -27,8 +27,8 @@ export default function SelectBox({
     return (
         <div className="flex justify-start">
             <div className="flex flex-row gap-[13px] px-4 py-2 bg-white rounded-lg border-2 border-input focus:border-input-hover" onClick={() => setShow(!Show)}>
-                <Text role="body">{nowlang}</Text>
-                <Image src="/home/arrow.svg" alt="sort" width={16} height={16}></Image>
+                <Text role="body">{value}</Text>
+                <Image src="/home/arrow2.svg" alt="sort" width={16} height={16}></Image>
             </div>
             {Show && (
                 <div className="absolute top-16 flex flex-col rounded-md bg-white p-1 z-10 h-80 overflow-y-scroll drop-shadow-2xl custom-scroll">
@@ -38,7 +38,7 @@ export default function SelectBox({
                                 htmlFor={lang}
                                 className="flex items-center gap-4 px-2 py-4 rounded-md hover:bg-sorted-hover"
                             >
-                                <span className={`${nowlang === lang ? 'bg-black' : 'bg-transparent'} w-2 h-2 rounded-full`}></span>
+                                <span className={`${value === lang ? 'bg-black' : 'bg-transparent'} w-2 h-2 rounded-full`}></span>
                                 <span>{lang}</span>
                             </label>
                             <input
