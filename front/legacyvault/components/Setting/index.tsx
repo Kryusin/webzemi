@@ -111,7 +111,7 @@ export default function Setting() {
     }
     return (
         <>
-            <Text role="title">Add Note</Text>
+            <Text role="title">Setting</Text>
             <div className="justify-self-stretch flex flex-row gap-9 items-center">
                 <Image src="/setting/icon.svg" alt="user" width={100} height={100} className="rounded-full"></Image>
                 <Text role="userName">高本龍信</Text>
