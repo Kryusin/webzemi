@@ -2,14 +2,28 @@
 import Logo from "@/components/logo";
 
 import Image from "next/image"
-import { useState } from "react";
-import { SideBarProps } from "@/types";
+import { useState,useEffect } from "react";
+import { SideBarProps,NoteDataProps } from "@/types";
+import { allNotes } from "@/scripts/getNotesNumber";
+import { Languages } from "next/dist/lib/metadata/types/alternative-urls-types";
 
-export default function Sidebar({ onClick }: { onClick: (page: SideBarProps) => void }) {
+
+export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, side: string) => void }) {
     const [languages, setLanguages] = useState(false);
+    const [laguageList, setlaguageList] = useState<Array<string>>([])
+
     const clickHome = () => {
         setLanguages(!languages);
     }
+    useEffect(() => {
+        let language:Array<string> = []
+        const allData = allNotes();
+        allData.map(
+            (all:NoteDataProps) => language.push(all.language)
+        )
+        setlaguageList(language)
+    }, [])
+    
     return (
         <div className="bg-[#1F2937] px-4 py-[45px] flex flex-col gap-12 flex-[1_0_0] h-screen">
             {/* logo */}
@@ -24,35 +38,27 @@ export default function Sidebar({ onClick }: { onClick: (page: SideBarProps) => 
                     </div>
                     {languages ? (
                         <Image src="/sidebar/minus.svg" alt="home" width={24} height={24}></Image>
-                        // <Image src="/home/arrow.svg" alt="home" width={16} height={16}></Image>
 
                     ) : (
                         <Image src="/sidebar/plus.svg" alt="home" width={24} height={24}></Image>
-                        // <Image src="/home/arrow2.svg" alt="home" width={16} height={16}></Image>
                     )}
                 </div>
                 {/* languages */}
                 {languages && (
                     <div className="px-8 flex flex-col gap-4 h-[270px] overflow-y-scroll non-scroll py-4 bg-[#15202d] rounded-lg">
-                        <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Home)}>All</p>
-                        <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Detail)}>Javascript</p>
-                        <p className="text-white text-base font-bold">TypeScript</p>
-                        <p className="text-white text-base font-bold">Python</p>
-                        <p className="text-white text-base font-bold">Go</p>
-                        <p className="text-white text-base font-bold">PHP</p>
-                        <p className="text-white text-base font-bold">Java</p>
-                        <p className="text-white text-base font-bold">Ruby</p>
-                        <p className="text-white text-base font-bold">HTML</p>
-                        <p className="text-white text-base font-bold">CSS</p>
+                        <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Home, "all")}>All</p>
+                        {laguageList.map((lang:string) => (
+                            <p className="text-white text-base font-bold" key={lang} onClick={() => onClick(SideBarProps.Home, lang)}>{lang}</p>
+                        ))}
                     </div>
                 )}
                 {/* add note */}
-                <div className="flex flex-row gap-4" onClick={() => onClick(SideBarProps.AddNote)}>
+                <div className="flex flex-row gap-4" onClick={() => onClick(SideBarProps.AddNote, "addnote")}>
                     <Image src="/sidebar/note.svg" alt="home" width={24} height={24}></Image>
                     <span className="text-white text-xl font-bold">Add Note</span>
                 </div>
                 {/* setting */}
-                <div className="flex flex-row gap-4" onClick={() => onClick(SideBarProps.Setting)}>
+                <div className="flex flex-row gap-4" onClick={() => onClick(SideBarProps.Setting, "setting")}>
                     <Image src="/sidebar/setting.svg" alt="home" width={24} height={24}></Image>
                     <span className="text-white text-xl font-bold">Setting</span>
                 </div>

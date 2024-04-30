@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 export default function Detail({data}:{data: InputProps}) {
     var capitalize = function(str:string) {
         if (typeof str !== 'string' || !str) return str;
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        return str.charAt(0).toUpperCase() + str.slice(1);
     };
     return(
         data.ErrorTitle.length > 0 && (
