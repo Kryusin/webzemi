@@ -22,12 +22,33 @@ export const getNotesNumber = () => {
     return notesNumber;
 }
 
-export const allNotes = () => {
+export const allNotes = (sort:number) => {
     const noteStatus = [...testData];
     // 言語別に分ける
     const language = noteStatus.map((note) => note.language);
     const languageSet = new Set(language);
-    const languageArray = Array.from(languageSet);
+    let languageArray = Array.from(languageSet);
+    const Number = languageArray.map((lang) => {
+        return {
+            language: lang,
+            num: noteStatus.filter((note) => note.language === lang).length
+        }
+    });
+    //昇順
+    if(sort == 0){
+        languageArray.sort()
+    //降順
+    }else if(sort == 1){
+        languageArray.sort().reverse()
+    //メモ数多い順
+    }else if(sort == 2){
+        Number.sort((a, b) => b.num - a.num);
+        languageArray = Number.map((data) => data.language )
+    //メモ数少ない順
+    }else if(sort == 3){
+        Number.sort((a, b) => b.num - a.num).reverse();
+        languageArray = Number.map((data) => data.language )
+    }
     const notesNumber = languageArray.map((lang) => {
         return {
             language: lang,
