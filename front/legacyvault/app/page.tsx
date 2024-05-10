@@ -17,7 +17,7 @@ export default function Page() {
     if(noteStatus !== "edit") {
       setErrorData({id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: ''})
     }
-    console.log(`${noteStatus}: ErrorDatad clear`);
+    // console.log(`${noteStatus}: ErrorDatad clear`);
   }, [noteStatus])
   return (
     <div className="flex flex-row gap-0">

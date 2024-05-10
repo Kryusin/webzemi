@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useState,useEffect } from "react";
 import { SideBarProps,NoteDataProps } from "@/types";
 import { allNotes } from "@/scripts/getNotesNumber";
+import { testData } from "../testdata";
 import { Languages } from "next/dist/lib/metadata/types/alternative-urls-types";
 
 
@@ -17,7 +18,7 @@ export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, sid
     }
     useEffect(() => {
         let language:Array<string> = []
-        const allData = allNotes();
+        const allData = allNotes(testData,1);
         allData.map(
             (all:NoteDataProps) => language.push(all.language)
         )

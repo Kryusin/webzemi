@@ -14,30 +14,38 @@ import Button from "@/components/Button"
 import { InputProps, NoteDataProps, SideBarProps } from "@/types"
 import { testData } from "../testdata";
 import { allNotes, getNotesNumber } from "@/scripts/getNotesNumber";
+import { data } from "../Chartjs";
 
-export default function Home({ onClick, sideChoice }: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string}) {
+export default function Home({ onClick, sideChoice,}: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string,}) {
     const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
     const [choiceData, setChoiceData] = useState<Array<InputProps>>([])
     const [sortData, sortChoiceData] = useState<number>(0)
+    const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
         let temp:Array<NoteDataProps[]> = [[], []]
-        const allData = allNotes(sortData);
-        console.log(allData);
+        const allData = allNotes(testData,sortData);
         allData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
         setNotesData(temp)
         if(sideChoice != "all"){
             notesData.map((data) => data.filter(value => value.language === sideChoice && setChoiceData(value.noteData)))
         }
-    }, [sideChoice,sortData])
+    }, [sideChoice,sortData, testData])
 
-    // useEffect(() => {
-    //     console.log(choiceData)
-    // }, [choiceData])
-
-    useEffect(() => {
-        console.log(sortData)
-    }, [sortData])
+    const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+        let search:Array<NoteDataProps[]> = [[], []]
+        const allData = allNotes(testData,sortData);
+        const searchArray = allData.map((alldata:NoteDataProps) => alldata.noteData.filter(function(data){
+            return data.ErrorTitle.indexOf(event.target.value) !== -1
+        }))
+        const filtterarray = searchArray.filter(array => array.length > 0)
+        const FilterArray = filtterarray.flat()
+        
+        const SearchData = allNotes(FilterArray,sortData)
+        SearchData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? search[0].push(all) : search[1].push(all))
+        setNotesData(search)
+        setInputValue(event.target.value);
+    };
     
 
     return (
@@ -49,7 +57,7 @@ export default function Home({ onClick, sideChoice }: { onClick: (value: SideBar
                     {/* search */}
                     <div className="bg-[#FFFFFF] flex flex-row rounded-[48px] px-4 py-2 gap-4 h-[50px] w-[60%]">
                         <Image src="/home/search.svg" alt="search" width={18} height={18}></Image>
-                        <input type="text" className="outline-none w-full" />
+                        <input type="text" value={inputValue} onChange={handleChange} className="outline-none w-full" />
                     </div>
                     {/* sort */}
                     <Sort onClick={(sort:number)=>{sortChoiceData(sort)}}/>
