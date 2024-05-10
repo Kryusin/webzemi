@@ -18,20 +18,26 @@ import { allNotes, getNotesNumber } from "@/scripts/getNotesNumber";
 export default function Home({ onClick, sideChoice }: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string}) {
     const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
     const [choiceData, setChoiceData] = useState<Array<InputProps>>([])
+    const [sortData, sortChoiceData] = useState<number>(0)
 
     useEffect(() => {
         let temp:Array<NoteDataProps[]> = [[], []]
-        const allData = allNotes();
+        const allData = allNotes(sortData);
+        console.log(allData);
         allData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
         setNotesData(temp)
         if(sideChoice != "all"){
             notesData.map((data) => data.filter(value => value.language === sideChoice && setChoiceData(value.noteData)))
         }
-    }, [sideChoice])
+    }, [sideChoice,sortData])
+
+    // useEffect(() => {
+    //     console.log(choiceData)
+    // }, [choiceData])
 
     useEffect(() => {
-        console.log(choiceData)
-    }, [choiceData])
+        console.log(sortData)
+    }, [sortData])
     
 
     return (
@@ -46,7 +52,7 @@ export default function Home({ onClick, sideChoice }: { onClick: (value: SideBar
                         <input type="text" className="outline-none w-full" />
                     </div>
                     {/* sort */}
-                    <Sort />
+                    <Sort onClick={(sort:number)=>{sortChoiceData(sort)}}/>
                 </div>
                 {sideChoice === "all" ? (
                     <div className="justify-self-stretch flex flex-row gap-6">

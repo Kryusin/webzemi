@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import Text from "@/components/Text"
 
-export default function Sort() {
+export default function Sort({onClick}:{onClick:(sort:number) => void}) {
     const [Show, setShow] = useState<boolean>(false);
     const [Select, setSelect] = useState<number>(0);
     return (
@@ -21,6 +21,7 @@ export default function Sort() {
                         onClick={(e) => {
                             setSelect(0)
                             setShow(false)
+                            onClick(0)
                         }}
                     >
                         <span className={`${Select === 0 && 'bg-black'} bg-transparent w-2 h-2 rounded-full`}></span>
@@ -33,6 +34,7 @@ export default function Sort() {
                         onClick={(e) => {
                             setSelect(1)
                             setShow(false)
+                            onClick(1)
                         }}
                     >
                         <span className={`${Select === 1 && 'bg-black'} bg-transparent w-2 h-2 rounded-full`}></span>
@@ -45,6 +47,7 @@ export default function Sort() {
                         onClick={(e) => {
                             setSelect(2)
                             setShow(false)
+                            onClick(2)
                         }}
                     >
                         <span className={`${Select === 2 && 'bg-black'} bg-transparent w-2 h-2 rounded-full`}></span>
@@ -57,6 +60,7 @@ export default function Sort() {
                         onClick={(e) => {
                             setSelect(3)
                             setShow(false)
+                            onClick(3)
                         }}
                     >
                         <span className={`${Select === 3 && 'bg-black'} bg-transparent w-2 h-2 rounded-full`}></span>
