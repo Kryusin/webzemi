@@ -27,7 +27,7 @@ export default function Page({ searchParams }: { searchParams: { [key: string]: 
     if (noteStatus !== "edit") {
       setErrorData({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' })
     }
-    console.log(`${noteStatus}: ErrorDatad clear`);
+    // console.log(`${noteStatus}: ErrorDatad clear`);
   }, [noteStatus])
 
   if (cookie.length > 0) {
