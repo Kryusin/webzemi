@@ -3,35 +3,45 @@ import Image from "next/image"
 import { useEffect, useState } from "react";
 
 import Card from "../Card"
-import Code from "@/components/Input/Code"
 import Text from "@/components/Text"
 import Sort from "../Sort"
 import LanguageCard from "@/components/LanguageCard"
-import TextField from "@/components/Input/TextField"
-import SelectBox from "@/components/Input/SelectBox"
-import TextArea from "@/components/Input/TextArea"
-import Button from "@/components/Button"
 import { InputProps, NoteDataProps, SideBarProps } from "@/types"
-import { testData } from "../testdata";
 import { allNotes, getNotesNumber } from "@/scripts/getNotesNumber";
 import { data } from "../Chartjs";
 
+<<<<<<< HEAD
+export default function Home({ onClick, sideChoice }: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string }) {
+=======
 export default function Home({ onClick, sideChoice,}: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string,}) {
+>>>>>>> origin/main
     const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
     const [choiceData, setChoiceData] = useState<Array<InputProps>>([])
     const [sortData, sortChoiceData] = useState<number>(0)
     const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
+<<<<<<< HEAD
+        let temp: Array<NoteDataProps[]> = [[], []]
+        const allData = allNotes();
+        allData.map((all: NoteDataProps, index: number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
+=======
         let temp:Array<NoteDataProps[]> = [[], []]
         const allData = allNotes(testData,sortData);
         allData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
+>>>>>>> origin/main
         setNotesData(temp)
-        if(sideChoice != "all"){
+        if (sideChoice != "all") {
             notesData.map((data) => data.filter(value => value.language === sideChoice && setChoiceData(value.noteData)))
         }
     }, [sideChoice,sortData, testData])
 
+<<<<<<< HEAD
+    useEffect(() => {
+        console.log(choiceData)
+    }, [choiceData])
+
+=======
     const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         let search:Array<NoteDataProps[]> = [[], []]
         const allData = allNotes(testData,sortData);
@@ -47,6 +57,7 @@ export default function Home({ onClick, sideChoice,}: { onClick: (value: SideBar
         setInputValue(event.target.value);
     };
     
+>>>>>>> origin/main
 
     return (
         <>
@@ -66,7 +77,7 @@ export default function Home({ onClick, sideChoice,}: { onClick: (value: SideBar
                     <div className="justify-self-stretch flex flex-row gap-6">
                         {notesData.length > 0 && <LanguageCard language={notesData} onClick={onClick} />}
                     </div>
-                ): (
+                ) : (
                     <div className="flex-[1_0_0] flex flex-row gap-[33px] flex-wrap">
                         {choiceData.length > 0 && (
                             choiceData.map((data) => (

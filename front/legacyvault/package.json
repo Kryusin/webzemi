@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.2",
+    "@workos-inc/authkit-nextjs": "^0.5.3",
+    "@workos-inc/node": "^7.3.0",
     "chart.js": "^4.4.2",
     "faker": "^6.6.6",
     "next": "14.2.1",
@@ -18,10 +20,10 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/faker": "^6.6.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/faker": "^6.6.6",
     "eslint": "^8",
     "eslint-config-next": "14.2.1",
     "postcss": "^8",
