@@ -3,21 +3,20 @@ import TextField from "@/components/Input/TextField"
 import SelectBox from "@/components/Input/SelectBox"
 import TextArea from "@/components/Input/TextArea"
 import Code from "@/components/Input/Code"
-import Button from "@/components/Button"
 import { useEffect, useState } from "react"
-import { InputProps,SideBarProps } from "@/types"
+import { InputProps, SideBarProps } from "@/types"
 
-export default function AddNote({status,data}: {status:string, data:InputProps}) {
-    const [input, setInput] = useState<InputProps>({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: ""});
+export default function AddNote({ status, data }: { status: string, data: InputProps }) {
+    const [input, setInput] = useState<InputProps>({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" });
     useEffect(() => {
-        if(data.ErrorTitle.length > 0 && status === "edit") {
+        if (data.ErrorTitle.length > 0 && status === "edit") {
             setInput(data)
-        }else{
-            setInput({id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: ""})
+        } else {
+            setInput({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" })
         }
         console.log(data)
     }, [data, status])
-    
+
     return (
         <>
             <Text role="title">{status === "edit" ? "Edit Note" : "Add Note"}</Text>
