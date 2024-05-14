@@ -19,11 +19,10 @@ export async function GET(request: Request) {
 
     if (response) {
         const cookie = cookies()
+        console.log(response)
         cookie.set('access_token', response.user.id);
         redirect(
-            `http://localhost:3000?response=${JSON.stringify(
-                response
-            )}`
+            `http://localhost:3000/${JSON.stringify(response.user.id)}`
         );
     }
 }
