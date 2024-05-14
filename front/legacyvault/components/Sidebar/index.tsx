@@ -2,11 +2,10 @@
 import Logo from "@/components/logo";
 
 import Image from "next/image"
-import { useState,useEffect } from "react";
-import { SideBarProps,NoteDataProps } from "@/types";
+import { useState, useEffect } from "react";
+import { SideBarProps, NoteDataProps } from "@/types";
 import { allNotes } from "@/scripts/getNotesNumber";
 import { testData } from "../testdata";
-import { Languages } from "next/dist/lib/metadata/types/alternative-urls-types";
 
 
 export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, side: string, status: string) => void }) {
@@ -17,14 +16,14 @@ export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, sid
         setLanguages(!languages);
     }
     useEffect(() => {
-        let language:Array<string> = []
-        const allData = allNotes(testData,1);
+        let language: Array<string> = []
+        const allData = allNotes(testData, 1);
         allData.map(
-            (all:NoteDataProps) => language.push(all.language)
+            (all: NoteDataProps) => language.push(all.language)
         )
         setlaguageList(language)
     }, [])
-    
+
     return (
         <div className="bg-[#1F2937] px-4 py-[45px] flex flex-col gap-12 flex-[1_0_0] h-screen">
             {/* logo */}
@@ -48,7 +47,7 @@ export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, sid
                 {languages && (
                     <div className="px-8 flex flex-col gap-4 h-[270px] overflow-y-scroll non-scroll py-4 bg-[#15202d] rounded-lg">
                         <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Home, "all", "all")}>All</p>
-                        {laguageList.map((lang:string) => (
+                        {laguageList.map((lang: string) => (
                             <p className="text-white text-base font-bold" key={lang} onClick={() => onClick(SideBarProps.Home, lang, "lang")}>{lang}</p>
                         ))}
                     </div>

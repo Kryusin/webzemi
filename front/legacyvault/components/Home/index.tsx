@@ -7,57 +7,41 @@ import Text from "@/components/Text"
 import Sort from "../Sort"
 import LanguageCard from "@/components/LanguageCard"
 import { InputProps, NoteDataProps, SideBarProps } from "@/types"
-import { allNotes, getNotesNumber } from "@/scripts/getNotesNumber";
+import { allNotes } from "@/scripts/getNotesNumber";
 import { data } from "../Chartjs";
+import { testData } from "@/components/testdata";
 
-<<<<<<< HEAD
 export default function Home({ onClick, sideChoice }: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string }) {
-=======
-export default function Home({ onClick, sideChoice,}: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string,}) {
->>>>>>> origin/main
     const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
     const [choiceData, setChoiceData] = useState<Array<InputProps>>([])
     const [sortData, sortChoiceData] = useState<number>(0)
     const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
-<<<<<<< HEAD
         let temp: Array<NoteDataProps[]> = [[], []]
-        const allData = allNotes();
+        const allData = allNotes(testData, sortData);
         allData.map((all: NoteDataProps, index: number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
-=======
-        let temp:Array<NoteDataProps[]> = [[], []]
-        const allData = allNotes(testData,sortData);
-        allData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
->>>>>>> origin/main
         setNotesData(temp)
         if (sideChoice != "all") {
             notesData.map((data) => data.filter(value => value.language === sideChoice && setChoiceData(value.noteData)))
         }
-    }, [sideChoice,sortData, testData])
+    }, [sideChoice, sortData, testData])
 
-<<<<<<< HEAD
-    useEffect(() => {
-        console.log(choiceData)
-    }, [choiceData])
-
-=======
-    const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-        let search:Array<NoteDataProps[]> = [[], []]
-        const allData = allNotes(testData,sortData);
-        const searchArray = allData.map((alldata:NoteDataProps) => alldata.noteData.filter(function(data){
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let search: Array<NoteDataProps[]> = [[], []]
+        const allData = allNotes(testData, sortData);
+        const searchArray = allData.map((alldata: NoteDataProps) => alldata.noteData.filter(function (data) {
             return data.ErrorTitle.indexOf(event.target.value) !== -1
         }))
         const filtterarray = searchArray.filter(array => array.length > 0)
         const FilterArray = filtterarray.flat()
-        
-        const SearchData = allNotes(FilterArray,sortData)
-        SearchData.map((all:NoteDataProps, index:number) => index % 2 == 0 ? search[0].push(all) : search[1].push(all))
+
+        const SearchData = allNotes(FilterArray, sortData)
+        SearchData.map((all: NoteDataProps, index: number) => index % 2 == 0 ? search[0].push(all) : search[1].push(all))
         setNotesData(search)
         setInputValue(event.target.value);
     };
-    
->>>>>>> origin/main
+
 
     return (
         <>
@@ -71,7 +55,7 @@ export default function Home({ onClick, sideChoice,}: { onClick: (value: SideBar
                         <input type="text" value={inputValue} onChange={handleChange} className="outline-none w-full" />
                     </div>
                     {/* sort */}
-                    <Sort onClick={(sort:number)=>{sortChoiceData(sort)}}/>
+                    <Sort onClick={(sort: number) => { sortChoiceData(sort) }} />
                 </div>
                 {sideChoice === "all" ? (
                     <div className="justify-self-stretch flex flex-row gap-6">
