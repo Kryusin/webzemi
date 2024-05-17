@@ -28,7 +28,8 @@ services:
     volumes:
       - ./back/src:/go/src
     working_dir: /go/src
-    # command: air -c .air.toml
+    depends_on:
+      - postgres
     networks:
       - lesson
   postgres:
