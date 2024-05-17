@@ -1,0 +1,1 @@
+alias pin='psql -U legacyvault -d legacyvault'

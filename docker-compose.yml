@@ -32,14 +32,14 @@ services:
     networks:
       - lesson
   postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
     container_name: postgres
-    image: postgres:latest
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
     ports:
       - 5433:5432
-    environment:
-      POSTGRES_USER: legacyvault
-      POSTGRES_PASSWORD: legacyvault
-      POSTGRES_DB: legacyvault
     restart: always
     networks:
       - lesson
