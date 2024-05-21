@@ -1,18 +1,28 @@
 package main
 
 import (
-	"net/http"
 
-	"github.com/labstack/echo/v4"
+	// "github.com/labstack/echo/v4"
 
 	"sample.com/db"
+	"sample.com/repository"
+	"sample.com/usecase"
+	"sample.com/validator"
+	"sample.com/controller"
+	"sample.com/router"
 )
 
+// , taskController
 func main() {
-	db.NewDB()
-	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, world")
-	})
+	db := db.NewDB()
+	userValidator := validator.NewUserValidator()
+	// taskValidator := validator.NewTaskValidator()
+	userRepository := repository.NewUserRepository(db)
+	// taskRepository := repository.NewTaskRepository(db)
+	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
+	// taskUsecase := usecase.NewTaskUsecase(taskRepository, taskValidator)
+	userController := controller.NewUserController(userUsecase)
+	// taskController := controller.NewTaskController(taskUsecase)
+	e := router.NewRouter(userController)
 	e.Logger.Fatal(e.Start(":1323"))
 }

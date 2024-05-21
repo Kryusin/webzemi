@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type ErrorNote struct {
+type Note struct {
 	ID                uint       `json:"id" gorm:"primaryKey"`
 	ErrorTitle        string     `json:"error_title"`
 	language          string     `json:"language "`
