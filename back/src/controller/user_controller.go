@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"log"
 
 	"github.com/labstack/echo/v4"
 )

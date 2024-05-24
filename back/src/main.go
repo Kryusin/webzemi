@@ -16,7 +16,7 @@ import (
 func main() {
 	db := db.NewDB()
 	userValidator := validator.NewUserValidator()
-	noteValidator := validator.NewNoteValidator()
+	// noteValidator := validator.NewNoteValidator()
 	userRepository := repository.NewUserRepository(db)
 	// taskRepository := repository.NewTaskRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
