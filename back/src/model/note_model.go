@@ -5,9 +5,9 @@ import "time"
 type Note struct {
 	ID                uint       `json:"id" gorm:"primaryKey"`
 	ErrorTitle        string     `json:"error_title"`
-	language          string     `json:"language "`
+	Language          string     `json:"language"`
 	ErrorDetails      string     `json:"error_details"`
-	BeforeCode        string     `json:"beforeCode "`
+	BeforeCode        string     `json:"beforeCode"`
 	ErrorReasonError  string     `json:"error_reason_error"`
 	SolutionDetails   string     `json:"solution_details"`
 	AfterCode         string     `json:"afterCode"`
