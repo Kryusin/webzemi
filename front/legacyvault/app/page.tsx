@@ -1,11 +1,21 @@
-
-import SignUp from "@/components/AuthKit/SignUp";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+'use client'
+import { useEffect } from 'react'
+import axios from 'axios'
+import Auth from '@/components/Auth'
+import { CsrfToken } from '@/types'
 
 export default function Page() {
-  const cookie = cookies()
-  const accessToken = cookie.get('access_token')
-  if (accessToken?.value != undefined && accessToken.value.length > 0) redirect(`${accessToken.value}`)
-  return <SignUp />
+  useEffect(() => {
+    axios.defaults.withCredentials = true
+    const getCsrfToken = async () => {
+      const { data } = await axios.get<CsrfToken>(
+        `${process.env.NEXT_PUBLIC_API_URL}/csrf`
+      )
+      axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
+    }
+    getCsrfToken()
+  }, [])
+  return (
+    <Auth />
+  )
 }

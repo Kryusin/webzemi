@@ -13,11 +13,11 @@ export interface NotesProps {
 
 export interface NotesDataProps {
     id: number;
-    language?:string
+    language?: string
     title: string;
     description: string;
     answer: string;
-    onClick: (value:SideBarProps, id:number) => void
+    onClick: (value: SideBarProps, id: number) => void
 }
 
 export interface InputProps {
@@ -63,4 +63,25 @@ export interface DataProps {
 export interface NoteDataProps {
     language: string,
     noteData: InputProps[]
+}
+
+export type Task = {
+    id: number
+    title: string
+    created_at: Date
+    updated_at: Date
+}
+export type CsrfToken = {
+    csrf_token: string
+}
+export type Credential = {
+    name?: string
+    email: string
+    password: string
+}
+
+export type LoginResponse = {
+    id: string
+    name: string
+    email: string
 }
