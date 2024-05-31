@@ -32,7 +32,7 @@ const config: Config = {
       backgroundColor: {
         'sorted-hover': '#E5E5E5',
         'show-code': '#1F2937'
-      }
+      },
     },
   },
   plugins: [],

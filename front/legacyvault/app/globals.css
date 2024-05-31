@@ -65,3 +65,19 @@
   background-color: gainsboro;
   border-radius: 20px;
 }
+
+
+/* Create an infinite horizontal sliding animation */
+@keyframes slide {
+  from {
+    transform: translateX(60%);
+  }
+  to {
+    transform: translateX(-60%);
+  }
+}
+
+/* Adapted to class animate-slide */
+.animate-slide {
+  animation: slide 40s linear infinite;
+}
