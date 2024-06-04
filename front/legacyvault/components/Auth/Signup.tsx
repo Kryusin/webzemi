@@ -23,7 +23,7 @@ export default function SignUp({
     changePassword: (value: string) => void
 }) {
     return (
-        <form onSubmit={onSubmit} className="min-w-[375px] bg-white rounded-2xl flex flex-col py-[42px] px-9 gap-4">
+        <form onSubmit={onSubmit} className="min-w-[375px] bg-white rounded-2xl flex flex-col py-[42px] px-9 gap-4 z-10">
             <div className="flex flex-col gap-4 items-center">
                 <Image src="/logo-Auth.svg" width={32} height={32} alt="legacyvault" />
                 <p>Signup in LegacyVault</p>
