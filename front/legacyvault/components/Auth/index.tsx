@@ -57,10 +57,12 @@ export default function Auth() {
     }
     return (
         <div className='flex flex-col items-center justify-center w-screen h-screen'>
-            <div className="absolute flex flex-row gap-20 -z-10 animate-slide">
-                {HttpStatus.map((status) => (
-                    <div className={`text-[96px]`} style={{ textShadow: "0 40px 20px rgba(0, 0, 0, 0.25)" }} key={status}>{status}</div>
-                ))}
+            <div className="absolute overflow-x-hidden x-screen h-screen flex justify-center items-center">
+                <div className="w-screen h-full flex flex-row justify-center items-center gap-20 -z-10 animate-slide">
+                    {HttpStatus.map((status) => (
+                        <div className={`text-[96px]`} style={{ textShadow: "0 40px 20px rgba(0, 0, 0, 0.25)" }} key={status}>{status}</div>
+                    ))}
+                </div>
             </div>
             {isLogin ? (
                 Login({ onSubmit: submitAuthHandler, changeWay, email, password: pw, error, changeEmail, changePassword })
