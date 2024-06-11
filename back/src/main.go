@@ -16,13 +16,13 @@ import (
 func main() {
 	db := db.NewDB()
 	userValidator := validator.NewUserValidator()
-	// noteValidator := validator.NewNoteValidator()
+	noteValidator := validator.NewNoteValidator()
 	userRepository := repository.NewUserRepository(db)
-	// taskRepository := repository.NewTaskRepository(db)
+	noteRepository := repository.NewNoteRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
-	// taskUsecase := usecase.NewTaskUsecase(taskRepository, taskValidator)
+	noteUsecase := usecase.NewNoteUsecase(noteRepository, noteValidator)
 	userController := controller.NewUserController(userUsecase)
-	// taskController := controller.NewTaskController(taskUsecase)
-	e := router.NewRouter(userController)
+	noteController := controller.NewNoteController(noteUsecase)
+	e := router.NewRouter(userController,noteController)
 	e.Logger.Fatal(e.Start(":1323"))
 }

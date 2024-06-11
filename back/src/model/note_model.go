@@ -4,6 +4,7 @@ import "time"
 
 type Note struct {
 	ID                uint       `json:"id" gorm:"primaryKey"`
+	UserID            string     `json:"user_id"`
 	ErrorTitle        string     `json:"error_title"`
 	Language          string     `json:"language"`
 	ErrorDetails      string     `json:"error_details"`
