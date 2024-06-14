@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { CsrfToken } from '../types'
-import useStore from '../store'
+import useStore from '../store/note'
 import { redirect } from 'next/navigation'
 
 export const useError = () => {

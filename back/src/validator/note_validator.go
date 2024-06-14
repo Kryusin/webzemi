@@ -19,11 +19,6 @@ func NewNoteValidator() INoteValidator {
 func (nv *noteValidator) NoteValidate(note model.Note) error {
 	return validation.ValidateStruct(&note,
 		validation.Field(
-			&note.UserID,
-			validation.Required.Error("user_id is required"),
-			validation.Length(1,1000).Error("Please enter at least one character"),
-		),
-		validation.Field(
 			&note.ErrorTitle,
 			validation.Required.Error("error_title is required"),
 			validation.Length(1,1000).Error("Please enter at least one character"),

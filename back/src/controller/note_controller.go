@@ -5,8 +5,9 @@ import (
 	"sample.com/usecase"
 	"net/http"
 	"strconv"
+	"log"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 )
 
@@ -29,6 +30,7 @@ func (nc *noteController) GetAllNotes(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 	userId := claims["user_id"]
+	log.Print(userId)
 
 	notesRes, err := nc.nu.GetAllNotes(uint(userId.(float64)))
 	if err != nil {
@@ -59,7 +61,7 @@ func (nc *noteController) CreateNote(c echo.Context) error {
 	if err := c.Bind(&note); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
-	note.UserID =userId.(string)
+	note.UserId = uint(userId.(float64))
 	noteRes, err := nc.nu.CreateNote(note)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())

@@ -4,6 +4,7 @@ import (
 	"sample.com/model"
 	"sample.com/repository"
 	"sample.com/validator"
+	"log"
 )
 
 type INoteUsecase interface {
@@ -29,10 +30,10 @@ func (nu *noteUsecase) GetAllNotes(userId uint) ([]model.Note, error) {
 		return nil, err
 	}
 	resNotes := []model.Note{}
+	log.Print(notes)
 	for _, note := range notes {
 		n := model.Note{
 			ID:        note.ID,
-			UserID:    note.UserID,
 			ErrorTitle: note.ErrorTitle,
 			Language: note.Language,
 			ErrorDetails: note.ErrorDetails,
@@ -42,6 +43,7 @@ func (nu *noteUsecase) GetAllNotes(userId uint) ([]model.Note, error) {
 			AfterCode: note.AfterCode ,
 			CreatedAt: note.CreatedAt,
 			UpdatedAt: note.UpdatedAt,
+			UserId : note.UserId,
 		}
 		resNotes = append(resNotes, n)
 	}
@@ -71,7 +73,6 @@ func (nu *noteUsecase) CreateNote(note model.Note) (model.Note, error) {
 	}
 	resNote := model.Note{
 		ID:        note.ID,
-		UserID:    note.UserID,
 		ErrorTitle: note.ErrorTitle,
 		Language: note.Language,
 		ErrorDetails: note.ErrorDetails,
@@ -94,7 +95,6 @@ func (nu *noteUsecase) UpdateNote(note model.Note, userId uint, noteId uint) (mo
 	}
 	resNote := model.Note{
 		ID:        note.ID,
-		UserID:    note.UserID,
 		ErrorTitle: note.ErrorTitle,
 		Language: note.Language,
 		ErrorDetails: note.ErrorDetails,

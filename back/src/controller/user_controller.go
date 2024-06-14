@@ -42,7 +42,7 @@ func (uc *userController) LogIn(c echo.Context) error {
 	if err := c.Bind(&user); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
-	tokenString, userName, err := uc.uu.Login(user)
+	tokenString, userRes, err := uc.uu.Login(user)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -56,7 +56,7 @@ func (uc *userController) LogIn(c echo.Context) error {
 	cookie.HttpOnly = true
 	cookie.SameSite = http.SameSiteNoneMode
 	c.SetCookie(cookie)
-	return c.JSON(http.StatusOK, userName)
+	return c.JSON(http.StatusOK, userRes)
 }
 
 func (uc *userController) LogOut(c echo.Context) error {

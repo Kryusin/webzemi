@@ -10,8 +10,10 @@ import { InputProps, NoteDataProps, SideBarProps } from "@/types"
 import { allNotes } from "@/scripts/getNotesNumber";
 import { data } from "../Chartjs";
 import { testData } from "@/components/testdata";
+import { useQueryNotes } from "@/hooks/useQueryNotes";
 
 export default function Home({ onClick, sideChoice }: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string }) {
+    const { data, isLoading } = useQueryNotes()
     const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
     const [choiceData, setChoiceData] = useState<Array<InputProps>>([])
     const [sortData, sortChoiceData] = useState<number>(0)
@@ -58,9 +60,11 @@ export default function Home({ onClick, sideChoice }: { onClick: (value: SideBar
                     <Sort onClick={(sort: number) => { sortChoiceData(sort) }} />
                 </div>
                 {sideChoice === "all" ? (
-                    <div className="justify-self-stretch flex flex-row gap-6">
-                        {notesData.length > 0 && <LanguageCard language={notesData} onClick={onClick} />}
-                    </div>
+                    !isLoading && (
+                        <div className="justify-self-stretch flex flex-row gap-6">
+                            {notesData.length > 0 && <LanguageCard language={data} onClick={onClick} />}
+                        </div>
+                     )
                 ) : (
                     <div className="flex-[1_0_0] flex flex-row gap-[33px] flex-wrap">
                         {choiceData.length > 0 && (

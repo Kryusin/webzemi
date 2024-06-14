@@ -22,6 +22,7 @@ export interface NotesDataProps {
 
 export interface InputProps {
     id: number,
+    user_id: number,
     ErrorTitle: string,
     language: string,
     ErrorDetails: string,
@@ -29,9 +30,8 @@ export interface InputProps {
     ErrorReason: string,
     SolutionDetails: string,
     AfterCode: string,
-    createdAt: string,
-    updatedAt?: string,
-    deletedAt?: string,
+    createdAt: Date,
+    updatedAt: Date,
 }
 
 export enum SideBarProps {
