@@ -19,7 +19,7 @@ import { useMutateAuth } from "@/hooks/useMutateAuth";
 export default function Page({ params }: { params: { name: string } }) {
 
     const queryClient = useQueryClient()
-    const {editedNote} = useStoreNote()
+    const { editedNote } = useStoreNote()
     const updateNote = useStoreNote((state) => state.updateEditedNote)
     const { createNoteMutation, updateNoteMutation } = useMutateNote()
     const { logoutMutation } = useMutateAuth();
@@ -28,7 +28,6 @@ export default function Page({ params }: { params: { name: string } }) {
     const [noteStatus, setNoteStatus] = useState<string>("add");
     const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' });
     const user = useStoreUser((state) => state.user)
-    console.log(user)
 
     useEffect(() => {
         if (noteStatus !== "edit") {

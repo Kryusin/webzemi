@@ -7,7 +7,7 @@ export const useQueryNotes = () => {
   const { switchErrorHandling } = useError()
   const getNotes = async () => {
     const { data } = await axios.get<InputProps[]>(
-      `${process.env.REACT_APP_API_URL}/notes`,
+      `${process.env.NEXT_PUBLIC_API_URL}/notes`,
       { withCredentials: true }
     )
     return data
