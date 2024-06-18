@@ -1,14 +1,16 @@
 package usecase
 
 import (
-	"sample.com/model"
-	"sample.com/repository"
-	"sample.com/validator"
 	"os"
 	"time"
 
+	"sample.com/model"
+	"sample.com/repository"
+	"sample.com/validator"
+
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
+	"strconv"
 )
 
 type IUserUsecase interface {
@@ -17,19 +19,28 @@ type IUserUsecase interface {
 }
 
 type userUsecase struct {
-	ur repository.IUserRepository
-	uv validator.IUserValidator
+	ur         repository.IUserRepository
+	uv         validator.IUserValidator
+	jwtSecret  string
+	bcryptCost int
 }
 
 func NewUserUsecase(ur repository.IUserRepository, uv validator.IUserValidator) IUserUsecase {
-	return &userUsecase{ur, uv}
+	jwtSecret := os.Getenv("SECRET")
+	bcryptCost := 2 // コストをさらに低く設定
+	if costStr := os.Getenv("BCRYPT_COST"); costStr != "" {
+		if cost, err := strconv.Atoi(costStr); err == nil {
+			bcryptCost = cost
+		}
+	}
+	return &userUsecase{ur, uv, jwtSecret, bcryptCost}
 }
 
 func (uu *userUsecase) SignUp(user model.User) (model.UserResponse, error) {
 	if err := uu.uv.UserValidate(user); err != nil {
 		return model.UserResponse{}, err
 	}
-	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
+	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), uu.bcryptCost)
 	if err != nil {
 		return model.UserResponse{}, err
 	}
@@ -37,40 +48,27 @@ func (uu *userUsecase) SignUp(user model.User) (model.UserResponse, error) {
 	if err := uu.ur.CreateUser(&newUser); err != nil {
 		return model.UserResponse{}, err
 	}
-	resUser := model.UserResponse{
-		ID:    newUser.ID,
-		Email: newUser.Email,
-		Name:  newUser.Name,
-	}
-	return resUser, nil
+	return model.UserResponse{ID: newUser.ID, Email: newUser.Email, Name: newUser.Name}, nil
 }
 
 func (uu *userUsecase) Login(user model.User) (string, model.UserResponse, error) {
 	if err := uu.uv.LoginValidate(user); err != nil {
 		return "", model.UserResponse{}, err
 	}
-	storedUser := model.User{}
+	var storedUser model.User
 	if err := uu.ur.GetUserByEmail(&storedUser, user.Email); err != nil {
 		return "", model.UserResponse{}, err
 	}
-	err := bcrypt.CompareHashAndPassword([]byte(storedUser.Password), []byte(user.Password))
-	if err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(storedUser.Password), []byte(user.Password)); err != nil {
 		return "", model.UserResponse{}, err
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": storedUser.ID,
-		"exp":     time.Now().Add(time.Hour * 12).Unix(),
+		"exp":     time.Now().Add(12 * time.Hour).Unix(),
 	})
-	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET")))
+	tokenString, err := token.SignedString([]byte(uu.jwtSecret))
 	if err != nil {
 		return "", model.UserResponse{}, err
 	}
-
-	userRes := model.UserResponse{
-		ID:    storedUser.ID,
-		Email: storedUser.Email,
-		Name:  storedUser.Name,
-	}
-
-	return tokenString, userRes, nil
+	return tokenString, model.UserResponse{ID: storedUser.ID, Email: storedUser.Email, Name: storedUser.Name}, nil
 }
