@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { InputProps, Task } from '@/types'
+import { InputProps } from '@/types'
 import useStoreNote from '@/store/note'
 import { useError } from '../hooks/useError'
 
@@ -10,8 +10,11 @@ export const useMutateNote = () => {
   const resetEditedNote = useStoreNote((state) => state.resetEditedNote)
 
   const createNoteMutation = useMutation(
-    (note: Omit<InputProps, 'id' | 'created_at' | 'updated_at'>) =>
-      axios.post<InputProps>(`${process.env.REACT_APP_API_URL}/notes`, note),
+    (note: Omit<InputProps, 'id' | 'created_at' | 'updated_at'>) =>{
+      console.log("note",note);
+      
+      return axios.post<InputProps>(`${process.env.NEXT_PUBLIC_API_URL}/notes`, note)
+    },
     {
       onSuccess: (res) => {
         const previousNotes = queryClient.getQueryData<InputProps[]>(['notes'])
@@ -31,15 +34,15 @@ export const useMutateNote = () => {
   )
   const updateNoteMutation = useMutation(
     (note: Omit<InputProps, 'created_at' | 'updated_at'>) =>
-      axios.put<InputProps>(`${process.env.REACT_APP_API_URL}/notes/${note.id}`, {
+      axios.put<InputProps>(`${process.env.NEXT_PUBLIC_API_URL}/notes/${note.id}`, {
         user_id: note.user_id,
-        ErrorTitle: note.ErrorTitle,
+        ErrorTitle: note.error_title,
         language: note.language,
-        ErrorDetails: note.ErrorDetails,
-        BeforeCode: note.BeforeCode,
-        ErrorReason: note.ErrorReason,
-        SolutionDetails: note.SolutionDetails,
-        AfterCode: note.AfterCode
+        ErrorDetails: note.error_detail,
+        BeforeCode: note.before_code,
+        ErrorReason: note.error_reason,
+        SolutionDetails: note.solution_detail,
+        AfterCode: note.after_code
       }),
     {
       onSuccess: (res, variables) => {
@@ -65,7 +68,7 @@ export const useMutateNote = () => {
   )
   const deleteNoteMutation = useMutation(
     (id: number) =>
-      axios.delete(`${process.env.REACT_APP_API_URL}/notes/${id}`),
+      axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/notes/${id}`),
     {
       onSuccess: (_, variables) => {
         const previousNotes = queryClient.getQueryData<InputProps[]>(['notes'])
