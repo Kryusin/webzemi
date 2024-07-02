@@ -34,6 +34,17 @@ export interface InputProps {
     updated_at: Date,
 }
 
+export interface AddProps {
+    user_id: number,
+    error_title: string,
+    language: string,
+    error_detail: string,
+    before_code: string,
+    error_reason: string,
+    solution_detail: string,
+    after_code: string,
+}
+
 export enum SideBarProps {
     Home = 'home',
     AddNote = 'addnote',

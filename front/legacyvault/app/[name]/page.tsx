@@ -2,7 +2,7 @@
 import Sidebar from "@/components/Sidebar";
 import Home from "@/components/Home";
 import Setting from "@/components/Setting";
-import { InputProps, SideBarProps } from "@/types";
+import { InputProps, SideBarProps, CsrfToken } from "@/types";
 import AddNote from "@/components/AddNote";
 import Detail from "@/components/Detail";
 
@@ -15,6 +15,7 @@ import useStoreNote from "@/store/note";
 import { useQueryNotes } from "@/hooks/useQueryNotes";
 import { useMutateNote } from "@/hooks/useMutateNote";
 import { useMutateAuth } from "@/hooks/useMutateAuth";
+import axios from "axios"
 
 export default function Page({ params }: { params: { name: string } }) {
 
@@ -29,6 +30,17 @@ export default function Page({ params }: { params: { name: string } }) {
     const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' });
     const user = useStoreUser((state) => state.user)
 
+    useEffect(() => {
+        axios.defaults.withCredentials = true
+        const getCsrfToken = async () => {
+          const { data } = await axios.get<CsrfToken>(
+            `${process.env.NEXT_PUBLIC_API_URL}/csrf`
+          )
+          axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
+        }
+        getCsrfToken()
+      }, [])
+      
     useEffect(() => {
         if (noteStatus !== "edit") {
             setErrorData({ id: 0, user_id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' })

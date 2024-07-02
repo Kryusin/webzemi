@@ -37,7 +37,7 @@ func NewRouter(uc controller.IUserController, nc controller.INoteController) *ec
 		TokenLookup: "cookie:token",
 	}))
 	n.GET("", nc.GetAllNotes)
-	n.POST("/", nc.CreateNote)
+	n.POST("", nc.CreateNote)
 	n.PUT("/:noteId", nc.UpdateNote)
 	n.DELETE("/:noteId", nc.DeleteNote)
 	return e

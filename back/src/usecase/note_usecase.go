@@ -5,6 +5,7 @@ import (
 	"sample.com/repository"
 	"sample.com/validator"
 	"log"
+	"fmt"
 )
 
 type INoteUsecase interface {
@@ -71,6 +72,7 @@ func (nu *noteUsecase) CreateNote(note model.Note) (model.Note, error) {
 	if err := nu.nr.CreateNote(&note); err != nil {
 		return model.Note{}, err
 	}
+	
 	resNote := model.Note{
 		ID:        note.ID,
 		ErrorTitle: note.ErrorTitle,
@@ -87,6 +89,7 @@ func (nu *noteUsecase) CreateNote(note model.Note) (model.Note, error) {
 }
 
 func (nu *noteUsecase) UpdateNote(note model.Note, userId uint, noteId uint) (model.Note, error) {
+	fmt.Println("usecase")
 	if err := nu.nv.NoteValidate(note); err != nil {
 		return model.Note{}, err
 	}

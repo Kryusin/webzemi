@@ -18,7 +18,6 @@ export default function Note() {
         if (noteStatus !== "edit") {
             setErrorData({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' })
         }
-        // console.log(`${noteStatus}: ErrorDatad clear`);
     }, [noteStatus])
 
     return (

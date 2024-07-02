@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"log"
+	"fmt"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
@@ -75,6 +76,8 @@ func (nc *noteController) UpdateNote(c echo.Context) error {
 	userId := claims["user_id"]
 	id := c.Param("noteId")
 	noteId, _ := strconv.Atoi(id)
+
+	fmt.Println("controller")
 
 	note := model.Note{}
 	if err := c.Bind(&note); err != nil {

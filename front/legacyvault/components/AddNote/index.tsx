@@ -5,29 +5,31 @@ import TextArea from "@/components/Input/TextArea"
 import Button from "../Button"
 import Code from "@/components/Input/Code"
 import { useEffect, useState } from "react"
-import { InputProps, SideBarProps } from "@/types"
+import { InputProps,AddProps, SideBarProps } from "@/types"
 import { useMutateNote } from "@/hooks/useMutateNote"
 import useStoreUser from "@/store/user"
 export default function AddNote({ status, data }: { status: string, data: InputProps }) {
     const user = useStoreUser((state) => state.user)
     const [input, setInput] = useState<InputProps>({ id: 0,user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: '', created_at: new Date(), updated_at: new Date() });
+    const [add, addInput] = useState<AddProps>({user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''});
     const { createNoteMutation, updateNoteMutation } = useMutateNote()
     useEffect(() => {
-        if (input.error_title.length > 0 && status === "edit") {
+        if (input.error_title.length > 0 || status === "edit") {
             setInput(data)
         } else {
-            setInput({ id: 0, user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: '', created_at: new Date(), updated_at: new Date() })
+            addInput({ user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''})
         }
     }, [data, status])
 
     const addClick = async() => {
         try {
             if(status === "edit") {
+                console.log(input);
                 await updateNoteMutation.mutateAsync(input)
                 
             } else {
                 console.log(input);
-                await createNoteMutation.mutateAsync(input)
+                await createNoteMutation.mutateAsync(add)
             }
         } catch(e) {
             console.log(e)
@@ -42,20 +44,32 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <Text role="errorDetails">Error Title</Text>
                     <TextField
                         value={input.error_title}
-                        onChange={(value: string) => setInput({ ...input, error_title: value })}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, error_title: value }));
+                            addInput((add) => ({ ...add, error_title: value }));
+                          }}
                         name="errorTitle"
                     ></TextField>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Laguage</Text>
-                    <SelectBox value={input.language} onChange={(value: string) => setInput({ ...input, language: value })}></SelectBox>
+                    <SelectBox 
+                        value={input.language} 
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, language: value }));
+                            addInput((add) => ({ ...add, language: value }));
+                        }}
+                    ></SelectBox>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Error Details</Text>
                     <TextArea
                         state="detail"
                         data={input.error_detail}
-                        onChange={(value: string) => setInput({ ...input, error_detail: value })}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, error_detail: value }));
+                            addInput((add) => ({ ...add, error_detail: value }));
+                        }}
                     ></TextArea>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
@@ -63,7 +77,10 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <Code
                         language={input.language}
                         beforecode={input.before_code}
-                        onChange={(value: string) => setInput({ ...input, before_code: value })}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, before_code: value }));
+                            addInput((add) => ({ ...add, before_code: value }));
+                        }}
                     ></Code>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
@@ -71,7 +88,10 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <TextArea
                         state="reason"
                         data={input.error_reason}
-                        onChange={(value: string) => setInput({ ...input, error_reason: value })}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, error_reason: value }));
+                            addInput((add) => ({ ...add, error_reason: value }));
+                        }}
                     ></TextArea>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
@@ -79,7 +99,10 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <TextArea
                         state="solution"
                         data={input.solution_detail}
-                        onChange={(value: string) => setInput({ ...input, solution_detail: value })}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, solution_detail: value }));
+                            addInput((add) => ({ ...add, solution_detail: value }));
+                        }}
                     ></TextArea>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
@@ -87,12 +110,21 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <Code
                         language={input.language}
                         beforecode={input.after_code}
-                        onChange={(value: string) => setInput({ ...input, after_code: value })}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, after_code: value }));
+                            addInput((add) => ({ ...add, after_code: value }));
+                        }}
                     ></Code>
                 </div>
-                <div className="justify-self-stretch flex flex-row gap-4 justify-end">
-                    <Button role="add" onClick={addClick}></Button>
-                </div>
+                {status === "addnote" ? (
+                    <div className="justify-self-stretch flex flex-row gap-4 justify-end">
+                        <Button role="add" onClick={addClick}></Button>
+                    </div>
+                ) : (
+                    <div className="justify-self-stretch flex flex-row gap-4 justify-end">
+                        <Button role="save" onClick={addClick}></Button>
+                    </div>
+                )}
             </div>
         </>
     )

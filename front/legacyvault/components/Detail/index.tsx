@@ -4,6 +4,7 @@ import Button from "@/components/Button"
 import { InputProps, SideBarProps } from "@/types"
 
 export default function Detail({ data, onClick }: { data: InputProps, onClick: (page: SideBarProps, status: string) => void }) {
+    
     var capitalize = function (str: string) {
         if (typeof str !== 'string' || !str) return str;
         return str.charAt(0).toUpperCase() + str.slice(1);

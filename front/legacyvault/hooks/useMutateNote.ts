@@ -1,20 +1,21 @@
 import axios from 'axios'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { InputProps } from '@/types'
+import { InputProps,AddProps } from '@/types'
 import useStoreNote from '@/store/note'
 import { useError } from '../hooks/useError'
+import { useRouter } from 'next/navigation'
+import useStoreUser from "@/store/user"
 
 export const useMutateNote = () => {
+  const user = useStoreUser((state) => state.user)
   const queryClient = useQueryClient()
   const { switchErrorHandling } = useError()
   const resetEditedNote = useStoreNote((state) => state.resetEditedNote)
+  const router = useRouter()
 
   const createNoteMutation = useMutation(
-    (note: Omit<InputProps, 'id' | 'created_at' | 'updated_at'>) =>{
-      console.log("note",note);
-      
-      return axios.post<InputProps>(`${process.env.NEXT_PUBLIC_API_URL}/notes`, note)
-    },
+    async (note: AddProps ) =>    
+      await axios.post<AddProps>(`${process.env.NEXT_PUBLIC_API_URL}/notes`, note),
     {
       onSuccess: (res) => {
         const previousNotes = queryClient.getQueryData<InputProps[]>(['notes'])
@@ -22,6 +23,7 @@ export const useMutateNote = () => {
           queryClient.setQueryData(['notes'], [...previousNotes, res.data])
         }
         resetEditedNote()
+        router.push(`/${user.name}`)
       },
       onError: (err: any) => {
         if (err.response.data.message) {
