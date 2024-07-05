@@ -7,7 +7,7 @@ export const getNotesNumber = () => {
     const date = new Date();
     date.setDate(date.getDate() - 6);
     const filteredNoteStatus = noteStatus.filter((note) => {
-        const createdAt = new Date(note.createdAt);
+        const createdAt = new Date(note.created_at);
         return createdAt.getFullYear() >= date.getFullYear() && createdAt.getMonth() >= date.getMonth() && createdAt.getDate() >= date.getDate();
     });
     // 言語別に分ける

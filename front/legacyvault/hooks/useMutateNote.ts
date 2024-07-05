@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import useStoreUser from "@/store/user"
 
 export const useMutateNote = () => {
-  const user = useStoreUser((state) => state.user)
+  const currentUser = useStoreUser((state) => state.currentUser)
   const queryClient = useQueryClient()
   const { switchErrorHandling } = useError()
   const resetEditedNote = useStoreNote((state) => state.resetEditedNote)
@@ -23,7 +23,8 @@ export const useMutateNote = () => {
           queryClient.setQueryData(['notes'], [...previousNotes, res.data])
         }
         resetEditedNote()
-        router.push(`/${user.name}`)
+        console.log(currentUser)
+        router.push(`/${currentUser.name}`)
       },
       onError: (err: any) => {
         if (err.response.data.message) {
@@ -38,13 +39,13 @@ export const useMutateNote = () => {
     (note: Omit<InputProps, 'created_at' | 'updated_at'>) =>
       axios.put<InputProps>(`${process.env.NEXT_PUBLIC_API_URL}/notes/${note.id}`, {
         user_id: note.user_id,
-        ErrorTitle: note.error_title,
+        error_title: note.error_title,
         language: note.language,
-        ErrorDetails: note.error_detail,
-        BeforeCode: note.before_code,
-        ErrorReason: note.error_reason,
-        SolutionDetails: note.solution_detail,
-        AfterCode: note.after_code
+        error_details: note.error_details,
+        before_code: note.before_code,
+        error_reason: note.error_reason,
+        solution_details: note.solution_details,
+        after_code: note.after_code
       }),
     {
       onSuccess: (res, variables) => {
@@ -58,6 +59,8 @@ export const useMutateNote = () => {
           )
         }
         resetEditedNote()
+        console.log(currentUser)
+        router.push(`/${currentUser.name}`)
       },
       onError: (err: any) => {
         if (err.response.data.message) {

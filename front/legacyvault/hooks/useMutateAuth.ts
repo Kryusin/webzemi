@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 export const useMutateAuth = () => {
-    const {user, updateUser, resetUser} = useStoreUser()
+    const {updateUser} = useStoreUser()
     const { switchErrorHandling } = useError()
     const router = useRouter()
     const loginMutation = useMutation(
@@ -16,6 +16,7 @@ export const useMutateAuth = () => {
         {
             onSuccess: (user: any) => {
                 updateUser(user.data)
+                console.log(user)
                 router.push(`/${user.data.name}`)
             },
             onError: (err: any) => {

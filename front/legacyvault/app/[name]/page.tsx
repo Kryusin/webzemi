@@ -9,7 +9,6 @@ import Detail from "@/components/Detail";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import checkCookie from "@/scripts/checkCookie";
-import useStoreUser from "@/store/user";
 import { useQueryClient } from "@tanstack/react-query";
 import useStoreNote from "@/store/note";
 import { useQueryNotes } from "@/hooks/useQueryNotes";
@@ -27,8 +26,7 @@ export default function Page({ params }: { params: { name: string } }) {
     const [open, setOpen] = useState<SideBarProps>(SideBarProps.Home);
     const [sideChoice, setSideChoice] = useState<string>("all");
     const [noteStatus, setNoteStatus] = useState<string>("add");
-    const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' });
-    const user = useStoreUser((state) => state.user)
+    const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at:  new Date(), updated_at: new Date()});
 
     useEffect(() => {
         axios.defaults.withCredentials = true
@@ -43,7 +41,7 @@ export default function Page({ params }: { params: { name: string } }) {
       
     useEffect(() => {
         if (noteStatus !== "edit") {
-            setErrorData({ id: 0, user_id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' })
+            setErrorData({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at:  new Date(), updated_at: new Date()})
         }
     }, [noteStatus])
 

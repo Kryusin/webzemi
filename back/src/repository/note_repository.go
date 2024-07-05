@@ -46,13 +46,14 @@ func (nr *noteRepository) CreateNote(note *model.Note) error {
 }
 
 func (nr *noteRepository) UpdateNote(note *model.Note, userId uint, noteId uint) error {
+	fmt.Println("repository")
 	updates := map[string]interface{}{
         "error_title":       note.ErrorTitle,
         "language":          note.Language,
-        "error_detail":      note.ErrorDetails,
+        "error_details":      note.ErrorDetails,
         "before_code":       note.BeforeCode,
-        "error_reason":      note.ErrorReasonError,
-        "solution_detail":   note.SolutionDetails,
+        "error_reason":      note.ErrorReason,
+        "solution_details":   note.SolutionDetails,
         "after_code":        note.AfterCode,
     }
 	result := nr.db.Model(&model.Note{}).Clauses(clause.Returning{}).Where("id=? AND user_id=?", noteId, userId).Updates(updates)

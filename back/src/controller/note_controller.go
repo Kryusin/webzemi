@@ -83,6 +83,7 @@ func (nc *noteController) UpdateNote(c echo.Context) error {
 	if err := c.Bind(&note); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
+	fmt.Println(note)
 	noteRes, err := nc.nu.UpdateNote(note, uint(userId.(float64)), uint(noteId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())

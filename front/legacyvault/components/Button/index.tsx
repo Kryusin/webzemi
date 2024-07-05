@@ -1,4 +1,4 @@
-import { SideBarProps, InputProps } from "@/types"
+import { SideBarProps } from "@/types"
 
 export default function Button({
     role,

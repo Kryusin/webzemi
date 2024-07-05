@@ -46,14 +46,14 @@ export default function Setting() {
             const noteData = note.noteData;
             const alreadyDate: string[] = []
             const dateData = noteData.map((data) => {
-                const createdAt = new Date(data.createdAt);
+                const createdAt = new Date(data.created_at);
                 const bool = alreadyDate.some((date) => date === `${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`)
                 if (bool) return;
                 alreadyDate.push(`${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`)
                 return {
                     date: `${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`,
                     noteNumber: noteData.filter((note) => {
-                        const noteCreatedAt = new Date(note.createdAt);
+                        const noteCreatedAt = new Date(note.created_at);
                         return createdAt.getFullYear() === noteCreatedAt.getFullYear() && createdAt.getMonth() === noteCreatedAt.getMonth() && createdAt.getDate() === noteCreatedAt.getDate();
                     }).length
                 }

@@ -9,15 +9,15 @@ import { InputProps,AddProps, SideBarProps } from "@/types"
 import { useMutateNote } from "@/hooks/useMutateNote"
 import useStoreUser from "@/store/user"
 export default function AddNote({ status, data }: { status: string, data: InputProps }) {
-    const user = useStoreUser((state) => state.user)
-    const [input, setInput] = useState<InputProps>({ id: 0,user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: '', created_at: new Date(), updated_at: new Date() });
-    const [add, addInput] = useState<AddProps>({user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''});
+    const currentUser = useStoreUser((state) => state.currentUser)
+    const [input, setInput] = useState<InputProps>({ id: 0,user_id: currentUser.id, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at: new Date(), updated_at: new Date() });
+    const [add, addInput] = useState<AddProps>({user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''});
     const { createNoteMutation, updateNoteMutation } = useMutateNote()
     useEffect(() => {
         if (input.error_title.length > 0 || status === "edit") {
             setInput(data)
         } else {
-            addInput({ user_id: user.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''})
+            addInput({ user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''})
         }
     }, [data, status])
 
@@ -65,10 +65,10 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <Text role="errorDetails">Error Details</Text>
                     <TextArea
                         state="detail"
-                        data={input.error_detail}
+                        data={input.error_details}
                         onChange={(value: string) => {
-                            setInput((input) => ({ ...input, error_detail: value }));
-                            addInput((add) => ({ ...add, error_detail: value }));
+                            setInput((input) => ({ ...input, error_details: value }));
+                            addInput((add) => ({ ...add, error_details: value }));
                         }}
                     ></TextArea>
                 </div>
@@ -98,10 +98,10 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <Text role="errorDetails">Solution Details</Text>
                     <TextArea
                         state="solution"
-                        data={input.solution_detail}
+                        data={input.solution_details}
                         onChange={(value: string) => {
-                            setInput((input) => ({ ...input, solution_detail: value }));
-                            addInput((add) => ({ ...add, solution_detail: value }));
+                            setInput((input) => ({ ...input, solution_details: value }));
+                            addInput((add) => ({ ...add, solution_details: value }));
                         }}
                     ></TextArea>
                 </div>
