@@ -12,13 +12,12 @@ export default function Note() {
     const [open, setOpen] = useState<SideBarProps>(SideBarProps.Home);
     const [sideChoice, setSideChoice] = useState<string>("all");
     const [noteStatus, setNoteStatus] = useState<string>("add");
-    const [errorData, setErrorData] = useState<InputProps>({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' });
+    const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at:  new Date(), updated_at: new Date()});
 
     useEffect(() => {
         if (noteStatus !== "edit") {
-            setErrorData({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: '' })
+            setErrorData({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at:  new Date(), updated_at: new Date()})
         }
-        // console.log(`${noteStatus}: ErrorDatad clear`);
     }, [noteStatus])
 
     return (

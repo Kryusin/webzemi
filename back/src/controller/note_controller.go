@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"log"
+	"fmt"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
@@ -76,10 +77,13 @@ func (nc *noteController) UpdateNote(c echo.Context) error {
 	id := c.Param("noteId")
 	noteId, _ := strconv.Atoi(id)
 
+	fmt.Println("controller")
+
 	note := model.Note{}
 	if err := c.Bind(&note); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
+	fmt.Println(note)
 	noteRes, err := nc.nu.UpdateNote(note, uint(userId.(float64)), uint(noteId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())

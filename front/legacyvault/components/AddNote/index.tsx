@@ -5,28 +5,31 @@ import TextArea from "@/components/Input/TextArea"
 import Button from "../Button"
 import Code from "@/components/Input/Code"
 import { useEffect, useState } from "react"
-import { InputProps, SideBarProps } from "@/types"
+import { InputProps,AddProps, SideBarProps } from "@/types"
 import { useMutateNote } from "@/hooks/useMutateNote"
 import useStoreUser from "@/store/user"
 export default function AddNote({ status, data }: { status: string, data: InputProps }) {
-    const user = useStoreUser((state) => state.user)
-    const [input, setInput] = useState<InputProps>({ id: 0,user_id: user.id, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" });
-    const { addMutation, updateMutation, deleteMutation } = useMutateNote()
+    const currentUser = useStoreUser((state) => state.currentUser)
+    const [input, setInput] = useState<InputProps>({ id: 0,user_id: currentUser.id, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at: new Date(), updated_at: new Date() });
+    const [add, addInput] = useState<AddProps>({user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''});
+    const { createNoteMutation, updateNoteMutation } = useMutateNote()
     useEffect(() => {
-        if (data.ErrorTitle.length > 0 && status === "edit") {
+        if (input.error_title.length > 0 || status === "edit") {
             setInput(data)
         } else {
-            setInput({ id: 0, user_id: user.id, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" })
+            addInput({ user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''})
         }
-        console.log(data)
     }, [data, status])
 
     const addClick = async() => {
         try {
             if(status === "edit") {
-                await updateMutation.mutateAsync(input)
+                console.log(input);
+                await updateNoteMutation.mutateAsync(input)
+                
             } else {
-                await addMutation.mutateAsync(input)
+                console.log(input);
+                await createNoteMutation.mutateAsync(add)
             }
         } catch(e) {
             console.log(e)
@@ -40,58 +43,88 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Error Title</Text>
                     <TextField
-                        value={input.ErrorTitle}
-                        onChange={(value: string) => setInput({ ...input, ErrorTitle: value })}
+                        value={input.error_title}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, error_title: value }));
+                            addInput((add) => ({ ...add, error_title: value }));
+                          }}
                         name="errorTitle"
                     ></TextField>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Laguage</Text>
-                    <SelectBox value={input.language} onChange={(value: string) => setInput({ ...input, language: value })}></SelectBox>
+                    <SelectBox 
+                        value={input.language} 
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, language: value }));
+                            addInput((add) => ({ ...add, language: value }));
+                        }}
+                    ></SelectBox>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Error Details</Text>
                     <TextArea
                         state="detail"
-                        data={input.ErrorDetails}
-                        onChange={(value: string) => setInput({ ...input, ErrorDetails: value })}
+                        data={input.error_details}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, error_details: value }));
+                            addInput((add) => ({ ...add, error_details: value }));
+                        }}
                     ></TextArea>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Code before modification</Text>
                     <Code
                         language={input.language}
-                        beforecode={input.BeforeCode}
-                        onChange={(value: string) => setInput({ ...input, BeforeCode: value })}
+                        beforecode={input.before_code}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, before_code: value }));
+                            addInput((add) => ({ ...add, before_code: value }));
+                        }}
                     ></Code>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Error Reason</Text>
                     <TextArea
                         state="reason"
-                        data={input.ErrorReason}
-                        onChange={(value: string) => setInput({ ...input, ErrorReason: value })}
+                        data={input.error_reason}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, error_reason: value }));
+                            addInput((add) => ({ ...add, error_reason: value }));
+                        }}
                     ></TextArea>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Solution Details</Text>
                     <TextArea
                         state="solution"
-                        data={input.SolutionDetails}
-                        onChange={(value: string) => setInput({ ...input, SolutionDetails: value })}
+                        data={input.solution_details}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, solution_details: value }));
+                            addInput((add) => ({ ...add, solution_details: value }));
+                        }}
                     ></TextArea>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Code before modification</Text>
                     <Code
                         language={input.language}
-                        beforecode={input.AfterCode}
-                        onChange={(value: string) => setInput({ ...input, AfterCode: value })}
+                        beforecode={input.after_code}
+                        onChange={(value: string) => {
+                            setInput((input) => ({ ...input, after_code: value }));
+                            addInput((add) => ({ ...add, after_code: value }));
+                        }}
                     ></Code>
                 </div>
-                <div className="justify-self-stretch flex flex-row gap-4 justify-end">
-                    <Button role="add" onClick={addClick}></Button>
-                </div>
+                {status === "addnote" ? (
+                    <div className="justify-self-stretch flex flex-row gap-4 justify-end">
+                        <Button role="add" onClick={addClick}></Button>
+                    </div>
+                ) : (
+                    <div className="justify-self-stretch flex flex-row gap-4 justify-end">
+                        <Button role="save" onClick={addClick}></Button>
+                    </div>
+                )}
             </div>
         </>
     )

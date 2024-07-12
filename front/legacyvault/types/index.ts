@@ -25,13 +25,24 @@ export interface InputProps {
     user_id: number,
     error_title: string,
     language: string,
+    error_details: string,
+    before_code: string,
+    error_reason: string,
+    solution_details: string,
+    after_code: string,
+    created_at: Date,
+    updated_at: Date,
+}
+
+export interface AddProps {
+    user_id: number,
+    error_title: string,
+    language: string,
     error_detail: string,
     before_code: string,
     error_reason: string,
     solution_detail: string,
     after_code: string,
-    created_at: Date,
-    updated_at: Date,
 }
 
 export enum SideBarProps {

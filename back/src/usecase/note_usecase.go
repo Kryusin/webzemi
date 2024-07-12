@@ -5,6 +5,7 @@ import (
 	"sample.com/repository"
 	"sample.com/validator"
 	"log"
+	"fmt"
 )
 
 type INoteUsecase interface {
@@ -38,7 +39,7 @@ func (nu *noteUsecase) GetAllNotes(userId uint) ([]model.Note, error) {
 			Language: note.Language,
 			ErrorDetails: note.ErrorDetails,
 			BeforeCode: note.BeforeCode,
-			ErrorReasonError: note.ErrorReasonError,
+			ErrorReason: note.ErrorReason,
 			SolutionDetails: note.SolutionDetails,
 			AfterCode: note.AfterCode ,
 			CreatedAt: note.CreatedAt,
@@ -71,13 +72,14 @@ func (nu *noteUsecase) CreateNote(note model.Note) (model.Note, error) {
 	if err := nu.nr.CreateNote(&note); err != nil {
 		return model.Note{}, err
 	}
+	
 	resNote := model.Note{
 		ID:        note.ID,
 		ErrorTitle: note.ErrorTitle,
 		Language: note.Language,
 		ErrorDetails: note.ErrorDetails,
 		BeforeCode: note.BeforeCode,
-		ErrorReasonError: note.ErrorReasonError,
+		ErrorReason: note.ErrorReason,
 		SolutionDetails: note.SolutionDetails,
 		AfterCode: note.AfterCode ,
 		CreatedAt: note.CreatedAt,
@@ -87,9 +89,14 @@ func (nu *noteUsecase) CreateNote(note model.Note) (model.Note, error) {
 }
 
 func (nu *noteUsecase) UpdateNote(note model.Note, userId uint, noteId uint) (model.Note, error) {
+	fmt.Println("usecase")
+	fmt.Println(note.ErrorDetails)
+	fmt.Println(note.ID)
 	if err := nu.nv.NoteValidate(note); err != nil {
+		fmt.Println("Validate error")
 		return model.Note{}, err
 	}
+	fmt.Println("Validate")
 	if err := nu.nr.UpdateNote(&note, userId, noteId); err != nil {
 		return model.Note{}, err
 	}
@@ -99,7 +106,7 @@ func (nu *noteUsecase) UpdateNote(note model.Note, userId uint, noteId uint) (mo
 		Language: note.Language,
 		ErrorDetails: note.ErrorDetails,
 		BeforeCode: note.BeforeCode,
-		ErrorReasonError: note.ErrorReasonError,
+		ErrorReason: note.ErrorReason,
 		SolutionDetails: note.SolutionDetails,
 		AfterCode: note.AfterCode ,
 		CreatedAt: note.CreatedAt,

@@ -39,7 +39,7 @@ func (nv *noteValidator) NoteValidate(note model.Note) error {
 			validation.Length(1,1000).Error("Please enter at least one character"),
 		),
 		validation.Field(
-			&note.ErrorReasonError,
+			&note.ErrorReason,
 			validation.Required.Error("error_reason_error is required"),
 			validation.Length(1,1000).Error("Please enter at least one character"),
 		),

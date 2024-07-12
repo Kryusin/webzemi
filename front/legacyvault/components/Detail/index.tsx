@@ -4,6 +4,7 @@ import Button from "@/components/Button"
 import { InputProps, SideBarProps } from "@/types"
 
 export default function Detail({ data, onClick }: { data: InputProps, onClick: (page: SideBarProps, status: string) => void }) {
+    
     var capitalize = function (str: string) {
         if (typeof str !== 'string' || !str) return str;
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -27,7 +28,7 @@ export default function Detail({ data, onClick }: { data: InputProps, onClick: (
                                 <Text role="errorDetails">/</Text>
                                 <Text role="errorDescription">Additional information about the error</Text>
                             </div>
-                            <div className="text-base">{data.error_detail}</div>
+                            <div className="text-base">{data.error_details}</div>
                         </div>
                         {/* Example */}
                         <div className="flex flex-col gap-4">
@@ -41,7 +42,7 @@ export default function Detail({ data, onClick }: { data: InputProps, onClick: (
                         <div className="flex flex-col gap-6 py-4">
                             <div className="flex flex-col gap-4">
                                 <Text role="note-language">Solution</Text>
-                                <div className="text-base">{data.solution_detail}</div>
+                                <div className="text-base">{data.solution_details}</div>
                             </div>
                             <div className="bg-[#1F2937] px-4 py-4 rounded-lg">
                                 <div className="text-[#ffffff] font-bold text-base">{data.after_code}</div>

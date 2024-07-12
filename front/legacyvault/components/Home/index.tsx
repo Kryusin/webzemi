@@ -35,7 +35,7 @@ export default function Home({ onClick, sideChoice }: { onClick: (value: SideBar
         let search: Array<NoteDataProps[]> = [[], []]
         const allData = allNotes(testData, sortData);
         const searchArray = allData.map((alldata: NoteDataProps) => alldata.noteData.filter(function (data) {
-            return data.ErrorTitle.indexOf(event.target.value) !== -1
+            return data.error_title.indexOf(event.target.value) !== -1
         }))
         const filtterarray = searchArray.filter(array => array.length > 0)
         const FilterArray = filtterarray.flat()
