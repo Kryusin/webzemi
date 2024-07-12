@@ -22,16 +22,16 @@ export interface NotesDataProps {
 
 export interface InputProps {
     id: number,
-    ErrorTitle: string,
+    user_id: number,
+    error_title: string,
     language: string,
-    ErrorDetails: string,
-    BeforeCode: string,
-    ErrorReason: string,
-    SolutionDetails: string,
-    AfterCode: string,
-    createdAt: string,
-    updatedAt?: string,
-    deletedAt?: string,
+    error_detail: string,
+    before_code: string,
+    error_reason: string,
+    solution_detail: string,
+    after_code: string,
+    created_at: Date,
+    updated_at: Date,
 }
 
 export enum SideBarProps {

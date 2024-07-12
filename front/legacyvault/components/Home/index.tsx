@@ -10,22 +10,26 @@ import { InputProps, NoteDataProps, SideBarProps } from "@/types"
 import { allNotes } from "@/scripts/getNotesNumber";
 import { data } from "../Chartjs";
 import { testData } from "@/components/testdata";
+import { useQueryNotes } from "@/hooks/useQueryNotes";
 
 export default function Home({ onClick, sideChoice }: { onClick: (value: SideBarProps, data: InputProps) => void, sideChoice: string }) {
     const [notesData, setNotesData] = useState<Array<NoteDataProps[]>>([[], []])
     const [choiceData, setChoiceData] = useState<Array<InputProps>>([])
     const [sortData, sortChoiceData] = useState<number>(0)
     const [inputValue, setInputValue] = useState("");
+    const { data, isLoading } = useQueryNotes()
 
     useEffect(() => {
         let temp: Array<NoteDataProps[]> = [[], []]
-        const allData = allNotes(testData, sortData);
-        allData.map((all: NoteDataProps, index: number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
-        setNotesData(temp)
-        if (sideChoice != "all") {
-            notesData.map((data) => data.filter(value => value.language === sideChoice && setChoiceData(value.noteData)))
+        if (data !== undefined) {
+            const allData = allNotes(data, sortData);
+            allData.map((all: NoteDataProps, index: number) => index % 2 == 0 ? temp[0].push(all) : temp[1].push(all))
+            setNotesData(temp)
+            if (sideChoice != "all") {
+                notesData.map((data) => data.filter(value => value.language === sideChoice && setChoiceData(value.noteData)))
+            }
         }
-    }, [sideChoice, sortData, testData])
+    }, [sideChoice, sortData, testData, isLoading])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let search: Array<NoteDataProps[]> = [[], []]

@@ -9,7 +9,7 @@ export default function Detail({ data, onClick }: { data: InputProps, onClick: (
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
     return (
-        data.ErrorTitle.length > 0 && (
+        data.error_title.length > 0 && (
             <>
                 <div className="flex flex-row gap-4">
                     <Image src={`/languages/${data.language}.svg`} alt="search" width={60} height={60}></Image>
@@ -18,7 +18,7 @@ export default function Detail({ data, onClick }: { data: InputProps, onClick: (
 
                 <div className="flex flex-col pl-[23px] gap-[38px]">
                     {/* Error Message */}
-                    <Text role="errorTitle">{data.ErrorTitle}</Text>
+                    <Text role="errorTitle">{data.error_title}</Text>
                     <div className="flex flex-col gap-8">
                         {/* error details */}
                         <div className="flex flex-col gap-4">
@@ -27,24 +27,24 @@ export default function Detail({ data, onClick }: { data: InputProps, onClick: (
                                 <Text role="errorDetails">/</Text>
                                 <Text role="errorDescription">Additional information about the error</Text>
                             </div>
-                            <div className="text-base">{data.ErrorDetails}</div>
+                            <div className="text-base">{data.error_detail}</div>
                         </div>
                         {/* Example */}
                         <div className="flex flex-col gap-4">
                             <Text role="note-language">Example</Text>
                             <div className="bg-[#1F2937] px-4 py-4 rounded-lg">
-                                <div className="text-[#ffffff] font-bold text-base">{data.BeforeCode}</div>
+                                <div className="text-[#ffffff] font-bold text-base">{data.before_code}</div>
                             </div>
-                            <div className="text-base">{data.ErrorReason}</div>
+                            <div className="text-base">{data.error_reason}</div>
                         </div>
                         {/* Solution */}
                         <div className="flex flex-col gap-6 py-4">
                             <div className="flex flex-col gap-4">
                                 <Text role="note-language">Solution</Text>
-                                <div className="text-base">{data.SolutionDetails}</div>
+                                <div className="text-base">{data.solution_detail}</div>
                             </div>
                             <div className="bg-[#1F2937] px-4 py-4 rounded-lg">
-                                <div className="text-[#ffffff] font-bold text-base">{data.AfterCode}</div>
+                                <div className="text-[#ffffff] font-bold text-base">{data.after_code}</div>
                             </div>
                         </div>
                         {/* Button */}

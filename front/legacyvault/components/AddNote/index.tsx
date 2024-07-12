@@ -2,20 +2,36 @@ import Text from "@/components/Text"
 import TextField from "@/components/Input/TextField"
 import SelectBox from "@/components/Input/SelectBox"
 import TextArea from "@/components/Input/TextArea"
+import Button from "../Button"
 import Code from "@/components/Input/Code"
 import { useEffect, useState } from "react"
 import { InputProps, SideBarProps } from "@/types"
-
+import { useMutateNote } from "@/hooks/useMutateNote"
+import useStoreUser from "@/store/user"
 export default function AddNote({ status, data }: { status: string, data: InputProps }) {
-    const [input, setInput] = useState<InputProps>({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" });
+    const user = useStoreUser((state) => state.user)
+    const [input, setInput] = useState<InputProps>({ id: 0,user_id: user.id, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" });
+    const { addMutation, updateMutation, deleteMutation } = useMutateNote()
     useEffect(() => {
         if (data.ErrorTitle.length > 0 && status === "edit") {
             setInput(data)
         } else {
-            setInput({ id: 0, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" })
+            setInput({ id: 0, user_id: user.id, ErrorTitle: '', language: 'javascript', ErrorDetails: '', BeforeCode: '', ErrorReason: '', SolutionDetails: '', AfterCode: '', createdAt: "" })
         }
         console.log(data)
     }, [data, status])
+
+    const addClick = async() => {
+        try {
+            if(status === "edit") {
+                await updateMutation.mutateAsync(input)
+            } else {
+                await addMutation.mutateAsync(input)
+            }
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
     return (
         <>
@@ -26,6 +42,7 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     <TextField
                         value={input.ErrorTitle}
                         onChange={(value: string) => setInput({ ...input, ErrorTitle: value })}
+                        name="errorTitle"
                     ></TextField>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
@@ -73,7 +90,7 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                     ></Code>
                 </div>
                 <div className="justify-self-stretch flex flex-row gap-4 justify-end">
-                    {/* <Button role="edit"></Button> */}
+                    <Button role="add" onClick={addClick}></Button>
                 </div>
             </div>
         </>

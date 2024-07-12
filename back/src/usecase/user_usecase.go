@@ -8,7 +8,7 @@ import (
 	"sample.com/repository"
 	"sample.com/validator"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 	"strconv"
 )
