@@ -11,8 +11,6 @@ import { redirect } from "next/navigation";
 import checkCookie from "@/scripts/checkCookie";
 import { useQueryClient } from "@tanstack/react-query";
 import useStoreNote from "@/store/note";
-import { useQueryNotes } from "@/hooks/useQueryNotes";
-import { useMutateNote } from "@/hooks/useMutateNote";
 import { useMutateAuth } from "@/hooks/useMutateAuth";
 import axios from "axios"
 
@@ -21,7 +19,6 @@ export default function Page({ params }: { params: { name: string } }) {
     const queryClient = useQueryClient()
     const { editedNote } = useStoreNote()
     const updateNote = useStoreNote((state) => state.updateEditedNote)
-    const { createNoteMutation, updateNoteMutation } = useMutateNote()
     const { logoutMutation } = useMutateAuth();
     const [open, setOpen] = useState<SideBarProps>(SideBarProps.Home);
     const [sideChoice, setSideChoice] = useState<string>("all");

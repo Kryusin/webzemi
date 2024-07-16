@@ -2,13 +2,23 @@ import Image from "next/image"
 import Text from "@/components/Text"
 import Button from "@/components/Button"
 import { InputProps, SideBarProps } from "@/types"
+import { useMutateNote } from "@/hooks/useMutateNote";
 
 export default function Detail({ data, onClick }: { data: InputProps, onClick: (page: SideBarProps, status: string) => void }) {
     
+    const { deleteNoteMutation } = useMutateNote()
     var capitalize = function (str: string) {
         if (typeof str !== 'string' || !str) return str;
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
+
+    const deleteClick = async () => {
+        try {
+            deleteNoteMutation.mutateAsync(data.id)  
+        } catch (e) {
+            console.log(e)
+        }
+    }
     return (
         data.error_title.length > 0 && (
             <>
@@ -51,7 +61,7 @@ export default function Detail({ data, onClick }: { data: InputProps, onClick: (
                         {/* Button */}
                         <div className="flex flex-row gap-[10px] justify-end">
                             <Button role="edit" onClick={onClick} />
-                            <Button role="delete" onClick={onClick} />
+                            <Button role="delete" onClick={deleteClick} />
                         </div>
                     </div>
                 </div>
