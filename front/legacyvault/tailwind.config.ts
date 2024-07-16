@@ -33,6 +33,15 @@ const config: Config = {
         'sorted-hover': '#E5E5E5',
         'show-code': '#1F2937'
       },
+      animation: {
+        open: 'open 0.5s ease-in-out'
+      },
+      keyframes: {
+        open: {
+          '0%': { maxHeight: '0px' },
+          '100%': { maxHeight: '270px' },
+        }
+      }
     },
   },
   plugins: [],
