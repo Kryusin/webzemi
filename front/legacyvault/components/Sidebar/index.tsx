@@ -15,6 +15,7 @@ export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, sid
     const clickHome = () => {
         setLanguages(!languages);
     }
+
     useEffect(() => {
         let language: Array<string> = []
         const allData = allNotes(testData, 1);
@@ -45,7 +46,7 @@ export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, sid
                 </div>
                 {/* languages */}
                 {languages && (
-                    <div className="px-8 flex flex-col gap-4 h-[270px] overflow-y-scroll non-scroll py-4 bg-[#15202d] rounded-lg">
+                    <div className="px-8 flex flex-col gap-4 overflow-y-scroll non-scroll py-4 bg-[#15202d] rounded-lg duration-300 animate-open">
                         <p className="text-white text-base font-bold" onClick={() => onClick(SideBarProps.Home, "all", "all")}>All</p>
                         {laguageList.map((lang: string) => (
                             <p className="text-white text-base font-bold" key={lang} onClick={() => onClick(SideBarProps.Home, lang, "lang")}>{lang}</p>
