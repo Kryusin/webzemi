@@ -26,22 +26,22 @@ export default function Page({ params }: { params: { name: string } }) {
     const [open, setOpen] = useState<SideBarProps>(SideBarProps.Home);
     const [sideChoice, setSideChoice] = useState<string>("all");
     const [noteStatus, setNoteStatus] = useState<string>("add");
-    const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at:  new Date(), updated_at: new Date()});
+    const [errorData, setErrorData] = useState<InputProps>({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at: new Date(), updated_at: new Date() });
 
     useEffect(() => {
         axios.defaults.withCredentials = true
         const getCsrfToken = async () => {
-          const { data } = await axios.get<CsrfToken>(
-            `${process.env.NEXT_PUBLIC_API_URL}/csrf`
-          )
-          axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
+            const { data } = await axios.get<CsrfToken>(
+                `${process.env.NEXT_PUBLIC_API_URL}/csrf`
+            )
+            axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
         }
         getCsrfToken()
-      }, [])
-      
+    }, [])
+
     useEffect(() => {
         if (noteStatus !== "edit") {
-            setErrorData({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at:  new Date(), updated_at: new Date()})
+            setErrorData({ id: 0, user_id: 0, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at: new Date(), updated_at: new Date() })
         }
     }, [noteStatus])
 
@@ -60,7 +60,14 @@ export default function Page({ params }: { params: { name: string } }) {
                     }}
                         sideChoice={sideChoice} />
                 ) : open === SideBarProps.AddNote ? (
-                    <AddNote status={noteStatus} data={errorData} />
+                    <AddNote
+                        status={noteStatus}
+                        data={errorData}
+                        onOpen={() => {
+                            setOpen(SideBarProps.Home)
+                            setSideChoice("all")
+                        }}
+                    />
                 ) : open === SideBarProps.Setting ? (
                     <Setting />
                 ) : open === SideBarProps.Detail && (

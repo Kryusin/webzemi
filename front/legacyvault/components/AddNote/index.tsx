@@ -5,33 +5,33 @@ import TextArea from "@/components/Input/TextArea"
 import Button from "../Button"
 import Code from "@/components/Input/Code"
 import { useEffect, useState } from "react"
-import { InputProps,AddProps, SideBarProps } from "@/types"
+import { InputProps, AddProps, SideBarProps } from "@/types"
 import { useMutateNote } from "@/hooks/useMutateNote"
 import useStoreUser from "@/store/user"
-export default function AddNote({ status, data }: { status: string, data: InputProps }) {
+export default function AddNote({ status, data, onOpen }: { status: string, data: InputProps, onOpen: () => void }) {
     const currentUser = useStoreUser((state) => state.currentUser)
-    const [input, setInput] = useState<InputProps>({ id: 0,user_id: currentUser.id, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at: new Date(), updated_at: new Date() });
-    const [add, addInput] = useState<AddProps>({user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''});
+    const [input, setInput] = useState<InputProps>({ id: 0, user_id: currentUser.id, error_title: '', language: 'javascript', error_details: '', before_code: '', error_reason: '', solution_details: '', after_code: '', created_at: new Date(), updated_at: new Date() });
+    const [add, addInput] = useState<AddProps>({ user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: '' });
     const { createNoteMutation, updateNoteMutation } = useMutateNote()
     useEffect(() => {
         if (input.error_title.length > 0 || status === "edit") {
             setInput(data)
         } else {
-            addInput({ user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: ''})
+            addInput({ user_id: currentUser.id, error_title: '', language: 'javascript', error_detail: '', before_code: '', error_reason: '', solution_detail: '', after_code: '' })
         }
     }, [data, status])
 
-    const addClick = async() => {
+    const addClick = async () => {
         try {
-            if(status === "edit") {
+            if (status === "edit") {
                 console.log(input);
                 await updateNoteMutation.mutateAsync(input)
-                
             } else {
                 console.log(input);
                 await createNoteMutation.mutateAsync(add)
             }
-        } catch(e) {
+            onOpen()
+        } catch (e) {
             console.log(e)
         }
     }
@@ -47,14 +47,14 @@ export default function AddNote({ status, data }: { status: string, data: InputP
                         onChange={(value: string) => {
                             setInput((input) => ({ ...input, error_title: value }));
                             addInput((add) => ({ ...add, error_title: value }));
-                          }}
+                        }}
                         name="errorTitle"
                     ></TextField>
                 </div>
                 <div className="justify-self-stretch flex flex-col gap-4">
                     <Text role="errorDetails">Laguage</Text>
-                    <SelectBox 
-                        value={input.language} 
+                    <SelectBox
+                        value={input.language}
                         onChange={(value: string) => {
                             setInput((input) => ({ ...input, language: value }));
                             addInput((add) => ({ ...add, language: value }));
