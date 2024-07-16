@@ -14,6 +14,6 @@ export default function Button({
     ) : role === 'save' ? (
         <button className="w-[150px] h-[40px] border-input bg-show-code rounded justify-center items-center text-white font-bold hover:bg-[#101927]" type="submit" onClick={onClick}>Save</button>
     ) : role === 'add' && <button className="w-[150px] h-[40px] border-input bg-show-code rounded justify-center items-center text-white font-bold hover:bg-[#101927]" type="submit" onClick={onClick}>Add</button>
-    
+
     return button
 }

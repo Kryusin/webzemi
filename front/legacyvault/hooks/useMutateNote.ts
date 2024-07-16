@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { InputProps,AddProps } from '@/types'
+import { InputProps, AddProps } from '@/types'
 import useStoreNote from '@/store/note'
 import { useError } from '../hooks/useError'
 import { useRouter } from 'next/navigation'
@@ -14,7 +14,7 @@ export const useMutateNote = () => {
   const router = useRouter()
 
   const createNoteMutation = useMutation(
-    async (note: AddProps ) =>    
+    async (note: AddProps) =>
       await axios.post<AddProps>(`${process.env.NEXT_PUBLIC_API_URL}/notes`, note),
     {
       onSuccess: (res) => {
