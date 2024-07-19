@@ -3,27 +3,38 @@ import Logo from "@/components/logo";
 
 import Image from "next/image"
 import { useState, useEffect } from "react";
-import { SideBarProps, NoteDataProps } from "@/types";
+import { SideBarProps, NoteDataProps, InputProps } from "@/types";
 import { allNotes } from "@/scripts/getNotesNumber";
 import { testData } from "../testdata";
+import { useQueryClient } from "@tanstack/react-query";
+import useStoreNote from "@/store/note";
+import { useQueryNotes } from "@/hooks/useQueryNotes";
 
 
 export default function Sidebar({ onClick }: { onClick: (page: SideBarProps, side: string, status: string) => void }) {
+    const queryClient = useQueryClient()
+    const { editedNote } = useStoreNote()
+    const { data, isLoding } = useQueryNotes()
     const [languages, setLanguages] = useState(false);
     const [laguageList, setlaguageList] = useState<Array<string>>([])
 
     const clickHome = () => {
-        setLanguages(!languages);
+        if (data !== undefined) setLanguages(!languages);
+        onClick(SideBarProps.Home, "all", "all")
     }
 
     useEffect(() => {
-        let language: Array<string> = []
-        const allData = allNotes(testData, 1);
-        allData.map(
-            (all: NoteDataProps) => language.push(all.language)
-        )
-        setlaguageList(language)
+        if (data !== undefined) {
+            let language: Array<string> = []
+            const allData = allNotes(data, 1);
+            allData.map(
+                (all: NoteDataProps) => language.push(all.language)
+            )
+            setlaguageList(language)
+        }
     }, [])
+
+    useEffect(() => console.log(laguageList), [laguageList])
 
     return (
         <div className="bg-[#1F2937] px-4 py-[45px] flex flex-col gap-12 flex-[1_0_0] h-screen">
